@@ -9,7 +9,6 @@
   "inquiry_id",
   "buyer_name",
   "inquiry_date",
-  "item_qty",
   "column_break_4",
   "agent",
   "country",
@@ -607,11 +606,6 @@
    "label": "Country"
   },
   {
-   "fieldname": "item_qty",
-   "fieldtype": "Data",
-   "label": "Item Qty"
-  },
-  {
    "fieldname": "article_detail_section",
    "fieldtype": "Section Break",
    "label": "Article Detail"
@@ -753,7 +747,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2024-04-23 21:46:13.463985",
+ "modified": "2024-04-23 21:50:10.753895",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
