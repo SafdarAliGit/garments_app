@@ -1,4 +1,5 @@
 {
+ "_comments": "[{\"comment\": \"<div class=\\\"ql-editor read-mode\\\"><p> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs...\", \"by\": \"Administrator\", \"name\": \"6fd35df1df\"}]",
  "actions": [],
  "autoname": "ICS-.DD.-.MM.-.YYYY.-.####",
  "creation": "2021-12-11 10:54:03.791724",
@@ -31,7 +32,6 @@
   "pdm_key",
   "size_range",
   "fabric_calculation_section",
-  "cost_qty",
   "gsm",
   "constant",
   "variant",
@@ -659,11 +659,6 @@
    "label": "Fabric Calculation"
   },
   {
-   "fieldname": "cost_qty",
-   "fieldtype": "Float",
-   "label": "Cost Qty"
-  },
-  {
    "fieldname": "gsm",
    "fieldtype": "Data",
    "label": "GSM"
@@ -747,7 +742,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2024-04-23 21:50:10.753895",
+ "modified": "2024-04-23 21:50:38.178623",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
