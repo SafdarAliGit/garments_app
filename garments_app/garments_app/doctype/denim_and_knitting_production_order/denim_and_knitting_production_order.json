@@ -56,7 +56,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Job Costing",
-   "options": "Inquiry Cost Sheet",
+   "options": "Inquiry Cost Sheet Garment",
    "reqd": 1
   },
   {
@@ -219,7 +219,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-04-23 17:47:13.449272",
+ "modified": "2024-04-23 21:35:49.822464",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Denim and Knitting Production Order",

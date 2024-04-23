@@ -14,12 +14,10 @@
   "agent",
   "country",
   "order_qty",
-  "product_type",
   "column_break_7",
   "city",
   "buyer_address",
   "column_break_10",
-  "delivery_date",
   "article_detail_section",
   "article_no",
   "style",
@@ -146,16 +144,11 @@
    "options": "Size"
   },
   {
-   "fieldname": "delivery_date",
-   "fieldtype": "Date",
-   "label": "Delivery Date"
-  },
-  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Inquiry Cost Sheet",
+   "options": "Inquiry Cost Sheet Garment",
    "print_hide": 1,
    "read_only": 1
   },
@@ -599,14 +592,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "product_type",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Product Type",
-   "options": "\nGarment Top\nGarment Bottom\nHome Textile Bed Sheet\nTowel",
-   "reqd": 1
-  },
-  {
    "fieldname": "buyer_address",
    "fieldtype": "Small Text",
    "label": "Buyer Address"
@@ -768,10 +753,10 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2024-04-23 20:21:38.588286",
+ "modified": "2024-04-23 21:36:27.108104",
  "modified_by": "Administrator",
  "module": "Garments App",
- "name": "Inquiry Cost Sheet",
+ "name": "Inquiry Cost Sheet Garment",
  "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [

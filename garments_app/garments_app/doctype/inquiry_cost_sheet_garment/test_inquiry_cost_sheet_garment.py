@@ -4,5 +4,5 @@
 # import frappe
 import unittest
 
-class TestInquiryCostSheet(unittest.TestCase):
+class TestInquiryCostSheetGarment(unittest.TestCase):
 	pass

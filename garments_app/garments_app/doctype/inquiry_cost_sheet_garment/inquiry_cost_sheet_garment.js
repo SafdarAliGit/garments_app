@@ -1,7 +1,7 @@
 // Copyright (c) 2021, Unilink Enterprise and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Inquiry Cost Sheet', {
+frappe.ui.form.on('Inquiry Cost Sheet Garment', {
 	refresh(frm) {
 		/*frm.add_custom_button("Create PO", function(){
 			frappe.prompt([
@@ -195,7 +195,7 @@ frappe.ui.form.on('Inquiry Cost Sheet', {
 });
 
 
-frappe.ui.form.on('Inquiry Cost Sheet Fabric', {
+frappe.ui.form.on('Inquiry Cost Sheet Garment Fabric', {
 	qty(frm, cdt, cdn) {
 		var d = locals[cdt][cdn];
 		frappe.model.set_value(d.doctype, d.name, "amount", d.qty * d.rate)	
@@ -212,7 +212,7 @@ frappe.ui.form.on('Inquiry Cost Sheet Fabric', {
 });
 
 
-frappe.ui.form.on('Inquiry Cost Sheet Accessory', {
+frappe.ui.form.on('Inquiry Cost Sheet Garment Accessory', {
 	qty(frm, cdt, cdn) {
 		var d = locals[cdt][cdn];
 		frappe.model.set_value(d.doctype, d.name, "amount", d.qty * d.rate)
