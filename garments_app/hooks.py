@@ -215,3 +215,44 @@ app_license = "MIT"
 # auth_hooks = [
 #	"garments_app.auth.validate"
 # ]
+override_doctype_class = {
+	"Subcontracting Order": "garments_app.overrides.OverriddenSubcontractingOrder"
+}
+
+doc_events = {
+# 	"*": {
+# 		"on_update": "method",
+# 		"on_cancel": "method",
+# 		"on_trash": "method"
+#	},
+	"Purchase Order":{
+		"before_submit": "garments_app.events.purchase_order.validate"
+	},
+	"BOM": {
+		"validate": "garments_app.events.bom.bom_validation_for_percentage_fields"
+	},
+	"Subcontracting Order": {
+		"validate": "garments_app.events.subcontracting_order.calculate_total_reqiured_qty_and_no_bags"
+	}
+}
+
+user_data_fields = [
+	{
+		"doctype": "{doctype_1}",
+		"filter_by": "{filter_by}",
+		"redact_fields": ["{field_1}", "{field_2}"],
+		"partial": 1,
+	},
+	{
+		"doctype": "{doctype_2}",
+		"filter_by": "{filter_by}",
+		"partial": 1,
+	},
+	{
+		"doctype": "{doctype_3}",
+		"strict": False,
+	},
+	{
+		"doctype": "{doctype_4}"
+	}
+]
