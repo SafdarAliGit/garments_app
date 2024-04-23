@@ -4,11 +4,11 @@
 import frappe
 from frappe.model.document import Document
 
-class JobCosting(Document):
+class InquiryCostSheet(Document):
 	@frappe.whitelist()
 	def create_po(self, supplier):
 		po = frappe.new_doc("Purchase Order")
-		po.job_costing = self.name
+		po.inquiry_cost_sheet = self.name
 		po.posting_date = frappe.utils.nowdate()
 		po.schedule_date = frappe.utils.nowdate()
 		po.supplier = supplier
@@ -30,7 +30,7 @@ class JobCosting(Document):
 	@frappe.whitelist()
 	def create_so(self):
 		so = frappe.new_doc("Sales Order")
-		so.job_costing = self.name
+		so.inquiry_cost_sheet = self.name
 		so.posting_date = frappe.utils.nowdate()
 		so.delivery_date = frappe.utils.nowdate()
 		so.customer = self.buyer

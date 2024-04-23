@@ -1,24 +1,54 @@
 {
  "actions": [],
- "autoname": "JOB-.####",
+ "autoname": "ICS-.DD.-.MM.-.YYYY.-.####",
  "creation": "2021-12-11 10:54:03.791724",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "job_no",
-  "buyer",
-  "transaction_date",
+  "inquiry_id",
+  "buyer_name",
+  "inquiry_date",
+  "item_qty",
   "column_break_4",
   "agent",
-  "product",
-  "column_break_7",
-  "style",
+  "country",
   "order_qty",
+  "product_type",
+  "column_break_7",
+  "city",
+  "buyer_address",
   "column_break_10",
   "delivery_date",
-  "size_range",
+  "article_detail_section",
+  "article_no",
+  "style",
+  "column_break_9hyfb",
+  "product",
+  "product_name",
+  "column_break_okdx6",
+  "product_description",
   "amended_from",
+  "column_break_ylblt",
+  "season",
+  "pdm_key",
+  "size_range",
+  "fabric_calculation_section",
+  "cost_qty",
+  "gsm",
+  "body_length",
+  "column_break_dks79",
+  "chestbust",
+  "body_gross",
+  "constant",
+  "column_break_9tvdh",
+  "variant",
+  "sleeve_legnth",
+  "sleeve_width",
+  "column_break_fbf7l",
+  "sleeve_gross",
+  "total_body_gross",
+  "trim_and_accessories_section",
   "fabric_details_section",
   "fabrics",
   "fabrics_total",
@@ -91,40 +121,16 @@
  ],
  "fields": [
   {
-   "default": "Today",
-   "fieldname": "transaction_date",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Transaction Date",
-   "reqd": 1
-  },
-  {
-   "fieldname": "buyer",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Buyer",
-   "options": "Customer",
-   "reqd": 1
-  },
-  {
    "fieldname": "agent",
    "fieldtype": "Link",
    "label": "Agent",
    "options": "Sales Partner"
   },
   {
-   "fieldname": "product",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Product",
-   "options": "\nKIDS\nTROUSERS\nJEANS",
-   "reqd": 1
-  },
-  {
    "fieldname": "style",
    "fieldtype": "Link",
    "label": "Style",
-   "options": "Item"
+   "options": "Style"
   },
   {
    "default": "0",
@@ -135,8 +141,9 @@
   },
   {
    "fieldname": "size_range",
-   "fieldtype": "Data",
-   "label": "Size Range"
+   "fieldtype": "Link",
+   "label": "Size Range",
+   "options": "Size"
   },
   {
    "fieldname": "delivery_date",
@@ -148,7 +155,7 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Job Costing",
+   "options": "Inquiry Cost Sheet",
    "print_hide": 1,
    "read_only": 1
   },
@@ -502,13 +509,6 @@
    "label": "Washing Cost"
   },
   {
-   "fieldname": "job_no",
-   "fieldtype": "Data",
-   "label": "Job No",
-   "set_only_once": 1,
-   "unique": 1
-  },
-  {
    "default": "USD",
    "fieldname": "currency",
    "fieldtype": "Select",
@@ -574,6 +574,182 @@
    "fieldtype": "Currency",
    "label": "Grand Total Raw Material Cost + Leverage (3%)",
    "read_only": 1
+  },
+  {
+   "fieldname": "inquiry_id",
+   "fieldtype": "Data",
+   "label": "Inquiry Id",
+   "set_only_once": 1,
+   "unique": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "inquiry_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Inquiry Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "buyer_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Buyer Name",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "product_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Product Type",
+   "options": "\nGarment Top\nGarment Bottom\nHome Textile Bed Sheet\nTowel",
+   "reqd": 1
+  },
+  {
+   "fieldname": "buyer_address",
+   "fieldtype": "Small Text",
+   "label": "Buyer Address"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Data",
+   "label": "Country"
+  },
+  {
+   "fieldname": "item_qty",
+   "fieldtype": "Data",
+   "label": "Item Qty"
+  },
+  {
+   "fieldname": "article_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Article Detail"
+  },
+  {
+   "fieldname": "article_no",
+   "fieldtype": "Data",
+   "label": "Article No"
+  },
+  {
+   "fieldname": "product",
+   "fieldtype": "Select",
+   "label": "Product",
+   "options": "\nkids\nTrouser\nJeans"
+  },
+  {
+   "fieldname": "product_name",
+   "fieldtype": "Data",
+   "label": "Product Name"
+  },
+  {
+   "fieldname": "product_description",
+   "fieldtype": "Small Text",
+   "label": "Product Description"
+  },
+  {
+   "fieldname": "season",
+   "fieldtype": "Data",
+   "label": "Season"
+  },
+  {
+   "fieldname": "pdm_key",
+   "fieldtype": "Data",
+   "label": "PDM Key"
+  },
+  {
+   "fieldname": "column_break_9hyfb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_okdx6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_ylblt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fabric_calculation_section",
+   "fieldtype": "Section Break",
+   "label": "Fabric Calculation"
+  },
+  {
+   "fieldname": "cost_qty",
+   "fieldtype": "Float",
+   "label": "Cost Qty"
+  },
+  {
+   "fieldname": "gsm",
+   "fieldtype": "Data",
+   "label": "GSM"
+  },
+  {
+   "fieldname": "body_length",
+   "fieldtype": "Data",
+   "label": "Body Length"
+  },
+  {
+   "fieldname": "chestbust",
+   "fieldtype": "Data",
+   "label": "Chest/Bust"
+  },
+  {
+   "fieldname": "body_gross",
+   "fieldtype": "Data",
+   "label": "Body Gross"
+  },
+  {
+   "fieldname": "constant",
+   "fieldtype": "Data",
+   "label": "Constant"
+  },
+  {
+   "fieldname": "variant",
+   "fieldtype": "Data",
+   "label": "Variant"
+  },
+  {
+   "fieldname": "sleeve_legnth",
+   "fieldtype": "Data",
+   "label": "Sleeve Legnth"
+  },
+  {
+   "fieldname": "sleeve_width",
+   "fieldtype": "Data",
+   "label": "Sleeve Width"
+  },
+  {
+   "fieldname": "sleeve_gross",
+   "fieldtype": "Data",
+   "label": "Sleeve Gross"
+  },
+  {
+   "fieldname": "total_body_gross",
+   "fieldtype": "Data",
+   "label": "Total Body Gross"
+  },
+  {
+   "fieldname": "column_break_dks79",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_9tvdh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_fbf7l",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "trim_and_accessories_section",
+   "fieldtype": "Section Break",
+   "label": "Trim And Accessories"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -592,10 +768,11 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2022-06-13 11:38:07.551493",
+ "modified": "2024-04-23 20:21:38.588286",
  "modified_by": "Administrator",
  "module": "Garments App",
- "name": "Job Costing",
+ "name": "Inquiry Cost Sheet",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
@@ -644,5 +821,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

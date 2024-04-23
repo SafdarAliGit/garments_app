@@ -61,7 +61,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Job Costing",
-   "options": "Job Costing"
+   "options": "Inquiry Cost Sheet"
   },
   {
    "fieldname": "raw_materials_section",
@@ -257,7 +257,7 @@
    "link_fieldname": "denim_operation"
   }
  ],
- "modified": "2022-06-11 12:58:25.805721",
+ "modified": "2024-04-23 17:47:13.737482",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Denim Operation",
@@ -289,5 +289,6 @@
   }
  ],
  "sort_field": "modified",
- "sort_order": "DESC"
+ "sort_order": "DESC",
+ "states": []
 }
