@@ -1,0 +1,106 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-04-28 19:42:33.914416",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "gsm",
+  "constant",
+  "variant",
+  "body_length",
+  "chestbust",
+  "body_gross",
+  "sleeve_length",
+  "sleeve_width",
+  "sleeve_gross",
+  "total_body_gross",
+  "component"
+ ],
+ "fields": [
+  {
+   "fieldname": "gsm",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "GSM"
+  },
+  {
+   "fieldname": "constant",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Constant"
+  },
+  {
+   "fieldname": "variant",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Variant"
+  },
+  {
+   "fieldname": "body_length",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Body Length"
+  },
+  {
+   "fieldname": "chestbust",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Chest/Bust"
+  },
+  {
+   "default": "0",
+   "fieldname": "body_gross",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Body Gross",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sleeve_length",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Sleeve Length"
+  },
+  {
+   "default": "0",
+   "fieldname": "sleeve_gross",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Sleeve Gross",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_body_gross",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Total Body Gross"
+  },
+  {
+   "fieldname": "component",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Component",
+   "options": "\nRIB\nFleese\nJercy"
+  },
+  {
+   "fieldname": "sleeve_width",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Sleeve Width"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-04-28 21:05:53.034767",
+ "modified_by": "Administrator",
+ "module": "Garments App",
+ "name": "Fabric Calculations",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

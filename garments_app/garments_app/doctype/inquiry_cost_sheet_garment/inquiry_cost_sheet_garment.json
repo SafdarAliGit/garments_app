@@ -1,5 +1,4 @@
 {
- "_comments": "[{\"comment\": \"<div class=\\\"ql-editor read-mode\\\"><p> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs...\", \"by\": \"Administrator\", \"name\": \"6fd35df1df\"}]",
  "actions": [],
  "autoname": "ICS-.DD.-.MM.-.YYYY.-.####",
  "creation": "2021-12-11 10:54:03.791724",
@@ -32,26 +31,22 @@
   "pdm_key",
   "size_range",
   "fabric_calculation_section",
-  "gsm",
-  "constant",
-  "variant",
-  "column_break_dks79",
-  "body_length",
-  "chestbust",
-  "body_gross",
-  "column_break_9tvdh",
-  "sleeve_legnth",
-  "sleeve_width",
-  "sleeve_gross",
-  "column_break_fbf7l",
-  "total_body_gross",
-  "trim_and_accessories_section",
+  "fabric_calculations",
+  "section_break_z3w81",
+  "total_rib",
+  "column_break_ul5vq",
+  "total_jercy",
+  "column_break_v0znu",
+  "total_fleese",
   "fabric_details_section",
-  "fabrics",
+  "fabric",
+  "job_costing_fabric",
   "fabrics_total",
   "trims_and_accessories_details_section",
   "accessories",
   "accessories_total",
+  "cmt_charges_section",
+  "process_items",
   "other_expenses_section",
   "other_expenses",
   "financial_charges",
@@ -66,15 +61,6 @@
   "column_break_26",
   "misc_charges",
   "total",
-  "section_break_32",
-  "special_process",
-  "cutting",
-  "column_break_35",
-  "stitching_charges",
-  "column_break_37",
-  "finishing",
-  "column_break_39",
-  "add",
   "section_break_29",
   "fabric_cost",
   "cm_cost",
@@ -155,12 +141,6 @@
    "fieldname": "fabric_details_section",
    "fieldtype": "Section Break",
    "label": "Fabric Details"
-  },
-  {
-   "fieldname": "fabrics",
-   "fieldtype": "Table",
-   "label": "Fabrics",
-   "options": "Job Costing Fabric"
   },
   {
    "fieldname": "trims_and_accessories_details_section",
@@ -423,52 +403,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "section_break_32",
-   "fieldtype": "Section Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "special_process",
-   "fieldtype": "Currency",
-   "label": "Special Process"
-  },
-  {
-   "default": "0",
-   "fieldname": "cutting",
-   "fieldtype": "Currency",
-   "label": "Cutting"
-  },
-  {
-   "fieldname": "column_break_35",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "stitching_charges",
-   "fieldtype": "Currency",
-   "label": "Stitching Charges"
-  },
-  {
-   "fieldname": "column_break_37",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "finishing",
-   "fieldtype": "Currency",
-   "label": "Finishing"
-  },
-  {
-   "fieldname": "column_break_39",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "add",
-   "fieldtype": "Currency",
-   "label": "Add"
-  },
-  {
    "default": "0",
    "fieldname": "exchange_rate",
    "fieldtype": "Float",
@@ -659,71 +593,66 @@
    "label": "Fabric Calculation"
   },
   {
-   "fieldname": "gsm",
-   "fieldtype": "Data",
-   "label": "GSM"
+   "fieldname": "fabric_calculations",
+   "fieldtype": "Table",
+   "label": "Fabric Calculations",
+   "options": "Fabric Calculations"
   },
   {
-   "fieldname": "body_length",
+   "default": "0",
+   "fieldname": "total_rib",
    "fieldtype": "Data",
-   "label": "Body Length"
+   "label": "Total RIB",
+   "read_only": 1
   },
   {
-   "fieldname": "chestbust",
+   "default": "0",
+   "fieldname": "total_jercy",
    "fieldtype": "Data",
-   "label": "Chest/Bust"
+   "label": "Total Jercy",
+   "read_only": 1
   },
   {
-   "fieldname": "body_gross",
-   "fieldtype": "Data",
-   "label": "Body Gross"
-  },
-  {
-   "fieldname": "constant",
-   "fieldtype": "Data",
-   "label": "Constant"
-  },
-  {
-   "fieldname": "variant",
-   "fieldtype": "Data",
-   "label": "Variant"
-  },
-  {
-   "fieldname": "sleeve_legnth",
-   "fieldtype": "Data",
-   "label": "Sleeve Legnth"
-  },
-  {
-   "fieldname": "sleeve_width",
-   "fieldtype": "Data",
-   "label": "Sleeve Width"
-  },
-  {
-   "fieldname": "sleeve_gross",
-   "fieldtype": "Data",
-   "label": "Sleeve Gross"
-  },
-  {
-   "fieldname": "total_body_gross",
-   "fieldtype": "Data",
-   "label": "Total Body Gross"
-  },
-  {
-   "fieldname": "column_break_dks79",
+   "fieldname": "column_break_ul5vq",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "column_break_9tvdh",
+   "default": "0",
+   "fieldname": "total_fleese",
+   "fieldtype": "Data",
+   "label": "Total Fleese",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_z3w81",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_v0znu",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "column_break_fbf7l",
-   "fieldtype": "Column Break"
+   "fieldname": "job_costing_fabric",
+   "fieldtype": "Table",
+   "label": "Job Costing Fabric",
+   "options": "Job Costing Fabric"
   },
   {
-   "fieldname": "trim_and_accessories_section",
+   "fieldname": "fabric",
+   "fieldtype": "Table",
+   "label": "Fabric",
+   "options": "Fabric"
+  },
+  {
+   "fieldname": "cmt_charges_section",
    "fieldtype": "Section Break",
-   "label": "Trim And Accessories"
+   "label": "CMT Charges"
+  },
+  {
+   "fieldname": "process_items",
+   "fieldtype": "Table",
+   "label": "Process Items",
+   "options": "Process Items"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -742,7 +671,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2024-04-23 21:50:38.178623",
+ "modified": "2024-04-28 20:27:23.678468",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
