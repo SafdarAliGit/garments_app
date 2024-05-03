@@ -39,7 +39,6 @@
   "column_break_v0znu",
   "total_fleese",
   "fabric_details_section",
-  "fabric",
   "job_costing_fabric",
   "fabrics_total",
   "trims_and_accessories_details_section",
@@ -638,12 +637,6 @@
    "options": "Job Costing Fabric"
   },
   {
-   "fieldname": "fabric",
-   "fieldtype": "Table",
-   "label": "Fabric",
-   "options": "Fabric"
-  },
-  {
    "fieldname": "cmt_charges_section",
    "fieldtype": "Section Break",
    "label": "CMT Charges"
@@ -671,7 +664,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2024-04-28 20:27:23.678468",
+ "modified": "2024-05-03 17:14:33.768542",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
