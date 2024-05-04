@@ -379,38 +379,53 @@ function calculate_fabric_total(frm) {
     var total_ratio_fleese = 0;
     var total_ratio_jercy = 0;
 
+    // Initialize fabrics_total if not already initialized
+    frm.doc.fabrics_total = frm.doc.fabrics_total || 0;
+
     // Calculate total ratios for RIB, Fleese, and Jercy
     for (var i in jcf) {
-        if (jcf[i].component == "RIB") {
-            total_ratio_rib += jcf[i].ratio;
-        } else if (jcf[i].component == "Fleese") {
-            total_ratio_fleese += jcf[i].ratio;
-        } else if (jcf[i].component == "Jercy") {
-            total_ratio_jercy += jcf[i].ratio;
+        var ratio = parseFloat(jcf[i].ratio); // Convert ratio to numeric type
+        if (!isNaN(ratio)) {
+            if (jcf[i].component == "RIB") {
+                total_ratio_rib += ratio;
+            } else if (jcf[i].component == "Fleese") {
+                total_ratio_fleese += ratio;
+            } else if (jcf[i].component == "Jercy") {
+                total_ratio_jercy += ratio;
+            }
+            frm.doc.fabrics_total += jcf[i].amount;
         }
-        frm.doc.fabrics_total += jcf[i].amount;
     }
 
     // Check if total ratio for any component exceeds 100
     if (total_ratio_rib > 100 || total_ratio_fleese > 100 || total_ratio_jercy > 100) {
+        var component;
+        var adjust_ratio;
+        if (total_ratio_rib > 100) {
+            component = "RIB";
+            adjust_ratio = total_ratio_rib - 100;
+        } else if (total_ratio_fleese > 100) {
+            component = "Fleese";
+            adjust_ratio = total_ratio_fleese - 100;
+        } else if (total_ratio_jercy > 100) {
+            component = "Jercy";
+            adjust_ratio = total_ratio_jercy - 100;
+        }
+
         // Find the last entry for the component and adjust its ratio
         for (var i = jcf.length - 1; i >= 0; i--) {
-            if (jcf[i].component == "RIB" && total_ratio_rib > 100) {
-                var adjust_ratio = jcf[i].ratio - (total_ratio_rib - 100);
-                frappe.model.set_value(jcf[i].doctype, jcf[i].name, "ratio", adjust_ratio);
-                total_ratio_rib = 100;
-            } else if (jcf[i].component == "Fleese" && total_ratio_fleese > 100) {
-                var adjust_ratio = jcf[i].ratio - (total_ratio_fleese - 100);
-                frappe.model.set_value(jcf[i].doctype, jcf[i].name, "ratio", adjust_ratio);
-                total_ratio_fleese = 100;
-            } else if (jcf[i].component == "Jercy" && total_ratio_jercy > 100) {
-                var adjust_ratio = jcf[i].ratio - (total_ratio_jercy - 100);
-                frappe.model.set_value(jcf[i].doctype, jcf[i].name, "ratio", adjust_ratio);
-                total_ratio_jercy = 100;
+            if (jcf[i].component == component) {
+                var ratio = parseFloat(jcf[i].ratio);
+                if (!isNaN(ratio)) {
+                    var new_ratio = ratio - adjust_ratio;
+                    if (new_ratio >= 0) {
+                        frappe.model.set_value(jcf[i].doctype, jcf[i].name, "ratio", new_ratio);
+                        frappe.msgprint("Total ratio for " + component + " exceeds 100. The last ratio has been adjusted.");
+                        break;
+                    }
+                }
             }
         }
-        // Alert the user about the adjustment
-        frappe.msgprint("Total ratio exceeds 100. The last ratio has been adjusted.");
     }
 
     // Refresh the field
