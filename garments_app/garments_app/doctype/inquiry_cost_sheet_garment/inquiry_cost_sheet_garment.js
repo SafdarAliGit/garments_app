@@ -202,9 +202,6 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
 });
 
 
-
-
-
 frappe.ui.form.on('Inquiry Cost Sheet Garment Accessory', {
     qty(frm, cdt, cdn) {
         var d = locals[cdt][cdn];
@@ -324,6 +321,7 @@ frappe.ui.form.on('Process Items', {
         calculate_process_amount_total(frm);
     }
 });
+
 function calculate_ratio(frm, cdt, cdn) {
     var d = locals[cdt][cdn];
     if (d && d.component == "RIB" && frm.doc.total_rib > 0) {
@@ -356,7 +354,8 @@ function calculate_fabric_total(frm) {
     var total_ratio_jercy = 0;
 
     // Initialize fabrics_total if not already initialized
-    frm.doc.fabrics_total =  0;
+    frm.doc.fabrics_total = 0;
+    frm.doc.fabric_cost = 0;
 
     // Calculate total ratios for RIB, Fleese, and Jercy
     for (var i in jcf) {
@@ -370,6 +369,7 @@ function calculate_fabric_total(frm) {
                 total_ratio_jercy += ratio;
             }
             frm.doc.fabrics_total += jcf[i].amount;
+            frm.doc.fabric_cost = frm.doc.fabrics_total;
         }
     }
 
@@ -406,8 +406,8 @@ function calculate_fabric_total(frm) {
 
     // Refresh the field
     frm.refresh_field("fabrics_total");
+    frm.refresh_field("fabric_cost");
 }
-
 
 
 function rib_total(frm) {
@@ -446,17 +446,23 @@ function fleese_total(frm) {
 function calculate_accessories_total(frm) {
     var accessories = frm.doc.accessories;
     frm.doc.accessories_total = 0;
+    frm.doc.trims_and_accessories_cost = 0;
     for (var i in accessories) {
         frm.doc.accessories_total += accessories[i].amount
     }
-    frm.refresh_field("accessories_total")
+    frm.doc.trims_and_accessories_cost = frm.doc.accessories_total;
+    frm.refresh_field("accessories_total");
+    frm.refresh_field("trims_and_accessories_cost");
 }
 
 function calculate_process_amount_total(frm) {
     var process_items = frm.doc.process_items;
     frm.doc.total_process_amount = 0;
+    frm.doc.cm_cost = 0;
     for (var i in process_items) {
         frm.doc.total_process_amount += process_items[i].amount
     }
-    frm.refresh_field("total_process_amount")
+    frm.doc.cm_cost = frm.doc.total_process_amount;
+    frm.refresh_field("total_process_amount");
+    frm.refresh_field("cm_cost");
 }
