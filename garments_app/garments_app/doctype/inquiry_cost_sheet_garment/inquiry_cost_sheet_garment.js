@@ -202,21 +202,7 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
 });
 
 
-frappe.ui.form.on('Inquiry Cost Sheet Garment Fabric', {
-    qty(frm, cdt, cdn) {
-        var d = locals[cdt][cdn];
-        frappe.model.set_value(d.doctype, d.name, "amount", d.qty * d.rate)
-        set_fabrics_total(frm)
-    },
-    rate(frm, cdt, cdn) {
-        var d = locals[cdt][cdn];
-        frappe.model.set_value(d.doctype, d.name, "amount", d.qty * d.rate)
-        set_fabrics_total(frm)
-    },
-    fabrics_remove(frm) {
-        set_fabrics_total(frm)
-    }
-});
+
 
 
 frappe.ui.form.on('Inquiry Cost Sheet Garment Accessory', {
@@ -233,16 +219,6 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment Accessory', {
     }
 });
 
-
-function set_fabrics_total(frm) {
-    var fabrics = frm.doc.fabrics;
-    var fabrics_total = 0;
-    for (var i in fabrics) {
-        fabrics_total += fabrics[i].amount
-    }
-    frm.set_value("fabrics_total", fabrics_total)
-    frm.set_value("fabric_cost", fabrics_total)
-}
 
 function set_accessories_total(frm) {
     var accessories = frm.doc.accessories;
@@ -380,7 +356,7 @@ function calculate_fabric_total(frm) {
     var total_ratio_jercy = 0;
 
     // Initialize fabrics_total if not already initialized
-    frm.doc.fabrics_total = frm.doc.fabrics_total || 0;
+    frm.doc.fabrics_total =  0;
 
     // Calculate total ratios for RIB, Fleese, and Jercy
     for (var i in jcf) {
