@@ -3,37 +3,45 @@
 
 frappe.ui.form.on('Inquiry Cost Sheet Garment', {
     refresh(frm) {
-        /*frm.add_custom_button("Create PO", function(){
-            frappe.prompt([
-                {'fieldname': 'supplier', 'fieldtype': 'Link', 'options':'Supplier', 'label': 'Suppler', 'reqd': 1}
-            ],
-            function(values){
+        frm.set_query('item_code', 'accessories', function (doc, cdt, cdn) {
+            var d = locals[cdt][cdn];
+            return {
+                filters: [
+                    ["Item", "item_group", "=", "Trims"]
+                ]
+            };
+        }),
+            /*frm.add_custom_button("Create PO", function(){
+                frappe.prompt([
+                    {'fieldname': 'supplier', 'fieldtype': 'Link', 'options':'Supplier', 'label': 'Suppler', 'reqd': 1}
+                ],
+                function(values){
+                    frappe.call({
+                        method:"create_po",
+                        doc:frm.doc,
+                        args:{supplier:values.supplier},
+                        callback:function(r){
+                            frappe.set_route("Form", "Purchase Order", r.message)
+                        }
+                    })
+                },
+                'Supplier for PO',
+                'Create PO'
+                )
+                Confirm
+
+
+
+            })*/
+            frm.add_custom_button("Create SO", function () {
                 frappe.call({
-                    method:"create_po",
-                    doc:frm.doc,
-                    args:{supplier:values.supplier},
-                    callback:function(r){
-                        frappe.set_route("Form", "Purchase Order", r.message)
+                    method: "create_so",
+                    doc: frm.doc,
+                    callback: function (r) {
+                        frappe.set_route("Form", "Sales Order", r.message)
                     }
                 })
-            },
-            'Supplier for PO',
-            'Create PO'
-            )
-            Confirm
-
-
-
-        })*/
-        frm.add_custom_button("Create SO", function () {
-            frappe.call({
-                method: "create_so",
-                doc: frm.doc,
-                callback: function (r) {
-                    frappe.set_route("Form", "Sales Order", r.message)
-                }
             })
-        })
     },
     other_expenses_section(frm) {
         frm.trigger("set_total");
@@ -300,6 +308,133 @@ frappe.ui.form.on('Fabric Calculations', {
 
 });
 
+frappe.ui.form.on('Job Costing Fabric', {
+    refresh(frm) {
+    },
+    component: function (frm, cdt, cdn) {
+        calculate_ratio(frm, cdt, cdn);
+        calculate_amount(frm, cdt, cdn);
+        calculate_fabric_total(frm);
+    },
+    ratio: function (frm, cdt, cdn) {
+        calculate_ratio(frm, cdt, cdn);
+        calculate_amount(frm, cdt, cdn);
+        calculate_fabric_total(frm);
+    },
+    rate: function (frm, cdt, cdn) {
+        calculate_amount(frm, cdt, cdn);
+        calculate_fabric_total(frm);
+    }
+});
+frappe.ui.form.on('Job Costing Accessory', {
+    refresh(frm) {
+
+
+    },
+    qty: function (frm, cdt, cdn) {
+        calculate_amount(frm, cdt, cdn);
+        calculate_accessories_total(frm);
+    },
+    rate: function (frm, cdt, cdn) {
+        calculate_amount(frm, cdt, cdn);
+        calculate_accessories_total(frm);
+    }
+});
+frappe.ui.form.on('Process Items', {
+    refresh(frm) {
+
+    },
+    process_name: function (frm) {
+        calculate_process_amount_total(frm);
+    }
+});
+function calculate_ratio(frm, cdt, cdn) {
+    var d = locals[cdt][cdn];
+    if (d && d.component == "RIB" && frm.doc.total_rib > 0) {
+        var qty_rib = (d.ratio / 100) * frm.doc.total_rib;
+        frappe.model.set_value(d.doctype, d.name, "qty", qty_rib);
+    } else if (d && d.component == "Jercy" && frm.doc.total_jercy > 0) {
+        var qty_jercy = (d.ratio / 100) * frm.doc.total_jercy;
+        frappe.model.set_value(d.doctype, d.name, "qty", qty_jercy);
+    } else if (d && d.component == "Fleese" && frm.doc.total_fleese > 0) {
+        var qty_fleese = (d.ratio / 100) * frm.doc.total_fleese;
+        frappe.model.set_value(d.doctype, d.name, "qty", qty_fleese);
+    } else {
+        frappe.model.set_value(d.doctype, d.name, "qty", 0);
+    }
+}
+
+function calculate_amount(frm, cdt, cdn) {
+    var d = locals[cdt][cdn];
+    if (d && d.qty > 0 && d.rate > 0) {
+        frappe.model.set_value(d.doctype, d.name, "amount", d.qty * d.rate);
+    } else {
+        frappe.model.set_value(d.doctype, d.name, "amount", 0);
+    }
+}
+
+function calculate_fabric_total(frm) {
+    var jcf = frm.doc.job_costing_fabric;
+    var total_ratio_rib = 0;
+    var total_ratio_fleese = 0;
+    var total_ratio_jercy = 0;
+
+    // Calculate total ratios for RIB, Fleese, and Jercy
+    for (var i in jcf) {
+        if (jcf[i].component == "RIB") {
+            total_ratio_rib += jcf[i].ratio;
+        } else if (jcf[i].component == "Fleese") {
+            total_ratio_fleese += jcf[i].ratio;
+        } else if (jcf[i].component == "Jercy") {
+            total_ratio_jercy += jcf[i].ratio;
+        }
+        frm.doc.fabrics_total += jcf[i].amount;
+    }
+
+    // Check if total ratio for any component exceeds 100
+    if (total_ratio_rib > 100) {
+        // Find the last entry for RIB and adjust its ratio
+        for (var i = jcf.length - 1; i >= 0; i--) {
+            if (jcf[i].component == "RIB") {
+                var adjust_ratio = jcf[i].ratio - (total_ratio_rib - 100);
+                frappe.model.set_value(jcf[i].doctype, jcf[i].name, "ratio", adjust_ratio);
+                total_ratio_rib = 100;
+                // Alert the user about the adjustment for RIB
+                frappe.msgprint("Total ratio for RIB exceeds 100. The last ratio has been adjusted.");
+                break;
+            }
+        }
+    } else if (total_ratio_fleese > 100) {
+        // Find the last entry for Fleese and adjust its ratio
+        for (var i = jcf.length - 1; i >= 0; i--) {
+            if (jcf[i].component == "Fleese") {
+                var adjust_ratio = jcf[i].ratio - (total_ratio_fleese - 100);
+                frappe.model.set_value(jcf[i].doctype, jcf[i].name, "ratio", adjust_ratio);
+                total_ratio_fleese = 100;
+                // Alert the user about the adjustment for Fleese
+                frappe.msgprint("Total ratio for Fleese exceeds 100. The last ratio has been adjusted.");
+                break;
+            }
+        }
+    } else if (total_ratio_jercy > 100) {
+        // Find the last entry for Jercy and adjust its ratio
+        for (var i = jcf.length - 1; i >= 0; i--) {
+            if (jcf[i].component == "Jercy") {
+                var adjust_ratio = jcf[i].ratio - (total_ratio_jercy - 100);
+                frappe.model.set_value(jcf[i].doctype, jcf[i].name, "ratio", adjust_ratio);
+                total_ratio_jercy = 100;
+                // Alert the user about the adjustment for Jercy
+                frappe.msgprint("Total ratio for Jercy exceeds 100. The last ratio has been adjusted.");
+                break;
+            }
+        }
+    }
+
+    // Refresh the field
+    frm.refresh_field("fabrics_total");
+}
+
+
 function rib_total(frm) {
     var fc = frm.doc.fabric_calculations;
     frm.doc.total_rib = 0;
@@ -331,4 +466,22 @@ function fleese_total(frm) {
         }
     }
     frm.refresh_field("total_fleese")
+}
+
+function calculate_accessories_total(frm) {
+    var accessories = frm.doc.accessories;
+    frm.doc.accessories_total = 0;
+    for (var i in accessories) {
+        frm.doc.accessories_total += accessories[i].amount
+    }
+    frm.refresh_field("accessories_total")
+}
+
+function calculate_process_amount_total(frm) {
+    var process_items = frm.doc.process_items;
+    frm.doc.total_process_amount = 0;
+    for (var i in process_items) {
+        frm.doc.total_process_amount += process_items[i].amount
+    }
+    frm.refresh_field("total_process_amount")
 }

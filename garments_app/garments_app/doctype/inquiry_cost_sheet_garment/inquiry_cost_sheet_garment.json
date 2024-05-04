@@ -46,6 +46,7 @@
   "accessories_total",
   "cmt_charges_section",
   "process_items",
+  "total_process_amount",
   "other_expenses_section",
   "other_expenses",
   "financial_charges",
@@ -646,6 +647,13 @@
    "fieldtype": "Table",
    "label": "Process Items",
    "options": "Process Items"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_process_amount",
+   "fieldtype": "Data",
+   "label": "Total Process Amount",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -664,7 +672,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2024-05-03 17:14:33.768542",
+ "modified": "2024-05-04 17:51:24.254399",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
