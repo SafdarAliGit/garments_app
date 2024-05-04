@@ -319,6 +319,9 @@ frappe.ui.form.on('Process Items', {
     },
     process_name: function (frm) {
         calculate_process_amount_total(frm);
+    },
+    amount: function (frm) {
+        calculate_process_amount_total(frm);
     }
 });
 
