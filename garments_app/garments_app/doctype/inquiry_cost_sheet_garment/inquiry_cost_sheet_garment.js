@@ -392,47 +392,31 @@ function calculate_fabric_total(frm) {
     }
 
     // Check if total ratio for any component exceeds 100
-    if (total_ratio_rib > 100) {
-        // Find the last entry for RIB and adjust its ratio
+    if (total_ratio_rib > 100 || total_ratio_fleese > 100 || total_ratio_jercy > 100) {
+        // Find the last entry for the component and adjust its ratio
         for (var i = jcf.length - 1; i >= 0; i--) {
-            if (jcf[i].component == "RIB") {
+            if (jcf[i].component == "RIB" && total_ratio_rib > 100) {
                 var adjust_ratio = jcf[i].ratio - (total_ratio_rib - 100);
                 frappe.model.set_value(jcf[i].doctype, jcf[i].name, "ratio", adjust_ratio);
                 total_ratio_rib = 100;
-                // Alert the user about the adjustment for RIB
-                frappe.msgprint("Total ratio for RIB exceeds 100. The last ratio has been adjusted.");
-                break;
-            }
-        }
-    } else if (total_ratio_fleese > 100) {
-        // Find the last entry for Fleese and adjust its ratio
-        for (var i = jcf.length - 1; i >= 0; i--) {
-            if (jcf[i].component == "Fleese") {
+            } else if (jcf[i].component == "Fleese" && total_ratio_fleese > 100) {
                 var adjust_ratio = jcf[i].ratio - (total_ratio_fleese - 100);
                 frappe.model.set_value(jcf[i].doctype, jcf[i].name, "ratio", adjust_ratio);
                 total_ratio_fleese = 100;
-                // Alert the user about the adjustment for Fleese
-                frappe.msgprint("Total ratio for Fleese exceeds 100. The last ratio has been adjusted.");
-                break;
-            }
-        }
-    } else if (total_ratio_jercy > 100) {
-        // Find the last entry for Jercy and adjust its ratio
-        for (var i = jcf.length - 1; i >= 0; i--) {
-            if (jcf[i].component == "Jercy") {
+            } else if (jcf[i].component == "Jercy" && total_ratio_jercy > 100) {
                 var adjust_ratio = jcf[i].ratio - (total_ratio_jercy - 100);
                 frappe.model.set_value(jcf[i].doctype, jcf[i].name, "ratio", adjust_ratio);
                 total_ratio_jercy = 100;
-                // Alert the user about the adjustment for Jercy
-                frappe.msgprint("Total ratio for Jercy exceeds 100. The last ratio has been adjusted.");
-                break;
             }
         }
+        // Alert the user about the adjustment
+        frappe.msgprint("Total ratio exceeds 100. The last ratio has been adjusted.");
     }
 
     // Refresh the field
     frm.refresh_field("fabrics_total");
 }
+
 
 
 function rib_total(frm) {
