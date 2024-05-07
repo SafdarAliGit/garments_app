@@ -38,12 +38,27 @@
   "total_jercy",
   "column_break_v0znu",
   "total_fleese",
+  "column_break_gfnw1",
+  "gross_weight",
+  "column_break_exeqh",
+  "gross_weight_per_piece",
   "fabric_details_section",
   "job_costing_fabric",
+  "section_break_rvoer",
   "fabrics_total",
+  "column_break_vxo8o",
+  "fabric_cost_per_piece",
   "trims_and_accessories_details_section",
   "accessories",
   "accessories_total",
+  "knitting_and_dyeing_section",
+  "knitting_charges_per_kg",
+  "column_break_vt1zf",
+  "knitting_charges_per_piece",
+  "column_break_rlb7g",
+  "dyeing_charges_per_kg",
+  "column_break_uqogj",
+  "dyeing_charges_per_pcs",
   "cmt_charges_section",
   "process_items",
   "total_process_amount",
@@ -654,6 +669,80 @@
    "fieldtype": "Data",
    "label": "Total Process Amount",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "gross_weight",
+   "fieldtype": "Data",
+   "label": "Gross Weight",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_gfnw1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "gross_weight_per_piece",
+   "fieldtype": "Data",
+   "label": "Gross wt/Piece",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_exeqh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "fabric_cost_per_piece",
+   "fieldtype": "Data",
+   "label": "Fabric Cost/Pcs",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_vxo8o",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_rvoer",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "knitting_charges_per_kg",
+   "fieldtype": "Data",
+   "label": "Knitting Charges Per Kg"
+  },
+  {
+   "fieldname": "knitting_and_dyeing_section",
+   "fieldtype": "Section Break",
+   "label": "Knitting And Dyeing"
+  },
+  {
+   "fieldname": "knitting_charges_per_piece",
+   "fieldtype": "Data",
+   "label": "Knitting Charges Per Piece "
+  },
+  {
+   "fieldname": "dyeing_charges_per_kg",
+   "fieldtype": "Data",
+   "label": "Dyeing Charges Per Kg"
+  },
+  {
+   "fieldname": "dyeing_charges_per_pcs",
+   "fieldtype": "Data",
+   "label": "Dyeing Charges Per Pcs "
+  },
+  {
+   "fieldname": "column_break_vt1zf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_rlb7g",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_uqogj",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -672,7 +761,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2024-05-04 17:51:24.254399",
+ "modified": "2024-05-07 20:46:56.448914",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",

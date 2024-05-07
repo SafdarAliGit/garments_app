@@ -231,52 +231,75 @@ function set_accessories_total(frm) {
 frappe.ui.form.on('Fabric Calculations', {
     gsm(frm, cdt, cdn) {
         var d = locals[cdt][cdn];
-        frappe.model.set_value(d.doctype, d.name, "body_gross", ((d.gsm || 1) * (d.body_length || 1) * (d.chestbust || 1)) / (d.constant || 1));
-        frappe.model.set_value(d.doctype, d.name, "sleeve_gross", ((d.sleeve_length || 1) * (d.sleeve_width || 1) * (d.gsm || 1) * 2) / (d.constant || 1));
-        rib_total(frm)
-        jercy_total(frm)
-        fleese_total(frm)
+
+        calculate_body_gross(frm, cdt, cdn);
+        calculate_sleeve_gross(frm, cdt, cdn);
+        rib_total(frm);
+        jercy_total(frm);
+        fleese_total(frm);
+        gross_weight(frm);
     },
     body_length(frm, cdt, cdn) {
         var d = locals[cdt][cdn];
-        frappe.model.set_value(d.doctype, d.name, "body_gross", ((d.gsm || 1) * (d.body_length || 1) * (d.chestbust || 1)) / (d.constant || 1));
-        rib_total(frm)
-        jercy_total(frm)
-        fleese_total(frm)
+        calculate_body_gross(frm, cdt, cdn);
+
+        rib_total(frm);
+        jercy_total(frm);
+        fleese_total(frm);
+        gross_weight(frm);
     },
     chestbust(frm, cdt, cdn) {
         var d = locals[cdt][cdn];
-        frappe.model.set_value(d.doctype, d.name, "body_gross", ((d.gsm || 1) * (d.body_length || 1) * (d.chestbust || 1)) / (d.constant || 1));
-        rib_total(frm)
-        jercy_total(frm)
-        fleese_total(frm)
+        calculate_body_gross(frm, cdt, cdn);
+
+        rib_total(frm);
+        jercy_total(frm);
+        fleese_total(frm);
+        gross_weight(frm);
     },
     constant(frm, cdt, cdn) {
         var d = locals[cdt][cdn];
-        frappe.model.set_value(d.doctype, d.name, "body_gross", ((d.gsm || 1) * (d.body_length || 1) * (d.chestbust || 1)) / (d.constant || 1));
-        frappe.model.set_value(d.doctype, d.name, "sleeve_gross", ((d.sleeve_length || 1) * (d.sleeve_width || 1) * (d.gsm || 1) * 2) / (d.constant || 1));
-        rib_total(frm)
-        jercy_total(frm)
-        fleese_total(frm)
+        calculate_body_gross(frm, cdt, cdn);
+
+        calculate_sleeve_gross(frm, cdt, cdn)
+        rib_total(frm);
+        jercy_total(frm);
+        fleese_total(frm);
+        gross_weight(frm);
     },
     sleeve_length(frm, cdt, cdn) {
         var d = locals[cdt][cdn];
-        frappe.model.set_value(d.doctype, d.name, "sleeve_gross", ((d.sleeve_length || 1) * (d.sleeve_width || 1) * (d.gsm || 1) * 2) / (d.constant || 1));
-        rib_total(frm)
-        jercy_total(frm)
-        fleese_total(frm)
+        calculate_body_gross(frm, cdt, cdn);
+
+        calculate_sleeve_gross(frm, cdt, cdn)
+        rib_total(frm);
+        jercy_total(frm);
+        fleese_total(frm);
+        gross_weight(frm);
     },
     sleeve_width(frm, cdt, cdn) {
         var d = locals[cdt][cdn];
-        frappe.model.set_value(d.doctype, d.name, "sleeve_gross", ((d.sleeve_length || 1) * (d.sleeve_width || 1) * (d.gsm || 1) * 2) / (d.constant || 1));
-        rib_total(frm)
-        jercy_total(frm)
-        fleese_total(frm)
+        calculate_sleeve_gross(frm, cdt, cdn)
+        rib_total(frm);
+        jercy_total(frm);
+        fleese_total(frm);
+        gross_weight(frm);
     },
     component(frm) {
-        rib_total(frm)
-        jercy_total(frm)
-        fleese_total(frm)
+        rib_total(frm);
+        jercy_total(frm);
+        fleese_total(frm);
+        gross_weight(frm);
+    },
+    wastage_percentage(frm, cdt, cdn) {
+        var d = locals[cdt][cdn];
+
+        calculate_body_gross(frm, cdt, cdn);
+        calculate_sleeve_gross(frm, cdt, cdn);
+        rib_total(frm);
+        jercy_total(frm);
+        fleese_total(frm);
+        gross_weight(frm);
     }
 
 });
@@ -297,6 +320,11 @@ frappe.ui.form.on('Job Costing Fabric', {
     rate: function (frm, cdt, cdn) {
         calculate_amount(frm, cdt, cdn);
         calculate_fabric_total(frm);
+    },
+    rate_lbs: function (frm, cdt, cdn) {
+        var d = locals[cdt][cdn];
+        var rate = (d.rate_lbs || 0) * 2.2046;
+        frappe.model.set_value(cdt, cdn, "rate", rate);
     }
 });
 frappe.ui.form.on('Job Costing Accessory', {
@@ -349,6 +377,22 @@ function calculate_amount(frm, cdt, cdn) {
         frappe.model.set_value(d.doctype, d.name, "amount", 0);
     }
 }
+
+function calculate_body_gross(frm, cdt, cdn) {
+    var d = locals[cdt][cdn];
+    var body_gross = (flt(d.body_length || 0) + flt(d.sleeve_length || 0)) * (flt(d.chestbust || 1) * flt(d.gsm || 1)) / flt(d.constant || 1);
+    var wastage = body_gross * flt(d.wastage_percentage || 0) / 100;
+    frappe.model.set_value(d.doctype, d.name, "wastage", wastage);
+    frappe.model.set_value(d.doctype, d.name, "body_gross", body_gross + wastage);
+}
+
+function calculate_sleeve_gross(frm, cdt, cdn) {
+    var d = locals[cdt][cdn];
+    var sleeve_gross = ((d.sleeve_length || 1) * (d.sleeve_width || 1) * (d.gsm || 1) * 2) / (d.constant || 1);
+    frappe.model.set_value(d.doctype, d.name, "sleeve_gross", sleeve_gross);
+
+}
+
 
 function calculate_fabric_total(frm) {
     var jcf = frm.doc.job_costing_fabric;
@@ -410,6 +454,7 @@ function calculate_fabric_total(frm) {
     // Refresh the field
     frm.refresh_field("fabrics_total");
     frm.refresh_field("fabric_cost");
+    frm.set_value('fabric_cost_per_piece', flt(frm.doc.fabrics_total) / 12);
 }
 
 
@@ -468,4 +513,14 @@ function calculate_process_amount_total(frm) {
     frm.doc.cm_cost = frm.doc.total_process_amount;
     frm.refresh_field("total_process_amount");
     frm.refresh_field("cm_cost");
+}
+
+function gross_weight(frm) {
+    var gw = frm.doc.fabric_calculations;
+    frm.doc.gross_weight = 0;
+    for (var i in gw) {
+        frm.doc.gross_weight += gw[i].body_gross;
+    }
+    frm.refresh_field("gross_weight");
+    frm.set_value("gross_weight_per_piece", flt(frm.doc.gross_weight) / 12);
 }

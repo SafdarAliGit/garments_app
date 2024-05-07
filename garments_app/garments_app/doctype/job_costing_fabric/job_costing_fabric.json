@@ -12,7 +12,8 @@
   "uom",
   "qty",
   "rate",
-  "amount"
+  "amount",
+  "rate_lbs"
  ],
  "fields": [
   {
@@ -47,7 +48,7 @@
    "fieldname": "rate",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Rate",
+   "label": "Rate(KG)",
    "reqd": 1
   },
   {
@@ -79,12 +80,17 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Ratio"
+  },
+  {
+   "fieldname": "rate_lbs",
+   "fieldtype": "Currency",
+   "label": "Rate(LBS)"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-04 06:44:02.336341",
+ "modified": "2024-05-07 18:22:19.722672",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Job Costing Fabric",
