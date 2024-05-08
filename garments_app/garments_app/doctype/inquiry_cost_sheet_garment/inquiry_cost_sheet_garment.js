@@ -199,10 +199,16 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
         frm.trigger("net_making_cost")
     },
     knitting_charges_per_kg(frm) {
-        frm.set_value("knitting_charges_per_piece", flt(frm.doc.knitting_charges_per_kg) / flt(frm.doc.gross_weight_per_piece))
+        frm.set_value("knitting_charges_per_piece", flt(frm.doc.knitting_charges_per_kg) * flt(frm.doc.gross_weight));
+        total_fabric_cost(frm);
     },
     dyeing_charges_per_kg(frm) {
-        frm.set_value("dyeing_charges_per_piece", flt(frm.doc.dyeing_charges_per_kg) / flt(frm.doc.gross_weight_per_piece))
+        frm.set_value("dyeing_charges_per_piece", flt(frm.doc.dyeing_charges_per_kg) * flt(frm.doc.gross_weight));
+        total_fabric_cost(frm);
+    },
+    printing_charges_per_kg(frm) {
+        frm.set_value("printing_charges_per_piece", flt(frm.doc.printing_charges_per_kg) * flt(frm.doc.gross_weight));
+        total_fabric_cost(frm);
     }
 
 });
@@ -341,10 +347,13 @@ frappe.ui.form.on('Job Costing Accessory', {
     qty: function (frm, cdt, cdn) {
         calculate_amount(frm, cdt, cdn);
         calculate_accessories_total(frm);
+        total_fabric_cost(frm);
+
     },
     rate: function (frm, cdt, cdn) {
         calculate_amount(frm, cdt, cdn);
         calculate_accessories_total(frm);
+        total_fabric_cost(frm);
     }
 });
 frappe.ui.form.on('Process Items', {
@@ -353,9 +362,13 @@ frappe.ui.form.on('Process Items', {
     },
     process_name: function (frm) {
         calculate_process_amount_total(frm);
+        total_fabric_cost(frm);
+
     },
     amount: function (frm) {
         calculate_process_amount_total(frm);
+        total_fabric_cost(frm);
+
     }
 });
 
@@ -386,7 +399,7 @@ function calculate_amount(frm, cdt, cdn) {
 
 function calculate_body_gross(frm, cdt, cdn) {
     var d = locals[cdt][cdn];
-    var body_gross = (flt(d.body_length || 0) + flt(d.sleeve_length || 0)) * (flt(d.chestbust || 1) * flt(d.gsm || 1)) / flt(d.constant || 1);
+    var body_gross = ((flt(d.body_length || 0) + flt(d.sleeve_length || 0)) * (flt(d.chestbust || 1) * flt(d.gsm || 1)) / flt(d.constant || 1)) / 1000;
     var wastage = body_gross * flt(d.wastage_percentage || 0) / 100;
     frappe.model.set_value(d.doctype, d.name, "wastage", wastage);
     frappe.model.set_value(d.doctype, d.name, "body_gross", body_gross + wastage);
@@ -460,7 +473,7 @@ function calculate_fabric_total(frm) {
     // Refresh the field
     frm.refresh_field("fabrics_total");
     frm.refresh_field("fabric_cost");
-    frm.set_value('fabric_cost_per_piece', flt(frm.doc.fabrics_total) / 12);
+    frm.set_value('fabric_cost_per_piece', flt(frm.doc.fabrics_total) * 12);
 }
 
 
@@ -528,7 +541,24 @@ function gross_weight(frm) {
         frm.doc.gross_weight += gw[i].body_gross;
     }
     frm.refresh_field("gross_weight");
-    frm.set_value("gross_weight_per_piece", flt(frm.doc.gross_weight) / 12);
-    frm.set_value("knitting_charges_per_piece", flt(frm.doc.knitting_charges_per_kg) / flt(frm.doc.gross_weight_per_piece))
-    frm.set_value("dyeing_charges_per_piece", flt(frm.doc.dyeing_charges_per_kg) / flt(frm.doc.gross_weight_per_piece))
+    frm.set_value("gross_weight_per_piece", flt(frm.doc.gross_weight) * 12);
+    frm.set_value("knitting_charges_per_piece", flt(frm.doc.knitting_charges_per_kg) * flt(frm.doc.gross_weight))
+    frm.set_value("dyeing_charges_per_piece", flt(frm.doc.dyeing_charges_per_kg) * flt(frm.doc.gross_weight))
+    frm.set_value("printing_charges_per_piece", flt(frm.doc.printing_charges_per_kg) * flt(frm.doc.gross_weight))
+
+    var total_fabric_cost = 0;
+    var net_making_cost = 0;
+    total_fabric_cost = (flt(frm.doc.knitting_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.dyeing_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.printing_charges_per_kg) * flt(frm.doc.gross_weight))+ flt(frm.doc.fabric_cost);
+    frm.set_value("total_fabric_cost", total_fabric_cost);
+    net_making_cost = total_fabric_cost + frm.doc.cm_cost + frm.doc.trims_and_accessories_cost;
+    frm.set_value("net_making_cost",net_making_cost);
+}
+
+function total_fabric_cost(frm) {
+    var total_fabric_cost = 0;
+    var net_making_cost = 0;
+    total_fabric_cost = (flt(frm.doc.knitting_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.dyeing_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.printing_charges_per_kg) * flt(frm.doc.gross_weight))+ flt(frm.doc.fabric_cost);
+    frm.set_value("total_fabric_cost", total_fabric_cost);
+    net_making_cost = total_fabric_cost + frm.doc.cm_cost + frm.doc.trims_and_accessories_cost;
+    frm.set_value("net_making_cost",net_making_cost);
 }
