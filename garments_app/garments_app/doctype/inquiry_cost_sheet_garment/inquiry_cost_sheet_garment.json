@@ -58,7 +58,7 @@
   "column_break_rlb7g",
   "dyeing_charges_per_kg",
   "column_break_uqogj",
-  "dyeing_charges_per_pcs",
+  "dyeing_charges_per_piece",
   "cmt_charges_section",
   "process_items",
   "total_process_amount",
@@ -718,19 +718,9 @@
    "label": "Knitting And Dyeing"
   },
   {
-   "fieldname": "knitting_charges_per_piece",
-   "fieldtype": "Data",
-   "label": "Knitting Charges Per Piece "
-  },
-  {
    "fieldname": "dyeing_charges_per_kg",
    "fieldtype": "Data",
    "label": "Dyeing Charges Per Kg"
-  },
-  {
-   "fieldname": "dyeing_charges_per_pcs",
-   "fieldtype": "Data",
-   "label": "Dyeing Charges Per Pcs "
   },
   {
    "fieldname": "column_break_vt1zf",
@@ -743,6 +733,20 @@
   {
    "fieldname": "column_break_uqogj",
    "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "dyeing_charges_per_piece",
+   "fieldtype": "Data",
+   "label": "Dyeing Charges Per Pcs ",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "knitting_charges_per_piece",
+   "fieldtype": "Data",
+   "label": "Knitting Charges Per Piece ",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -761,7 +765,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2024-05-07 20:46:56.448914",
+ "modified": "2024-05-08 15:29:28.446721",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",

@@ -197,6 +197,12 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
     },
     before_save(frm) {
         frm.trigger("net_making_cost")
+    },
+    knitting_charges_per_kg(frm) {
+        frm.set_value("knitting_charges_per_piece", flt(frm.doc.knitting_charges_per_kg) / flt(frm.doc.gross_weight_per_piece))
+    },
+    dyeing_charges_per_kg(frm) {
+        frm.set_value("dyeing_charges_per_piece", flt(frm.doc.dyeing_charges_per_kg) / flt(frm.doc.gross_weight_per_piece))
     }
 
 });
@@ -523,4 +529,6 @@ function gross_weight(frm) {
     }
     frm.refresh_field("gross_weight");
     frm.set_value("gross_weight_per_piece", flt(frm.doc.gross_weight) / 12);
+    frm.set_value("knitting_charges_per_piece", flt(frm.doc.knitting_charges_per_kg) / flt(frm.doc.gross_weight_per_piece))
+    frm.set_value("dyeing_charges_per_piece", flt(frm.doc.dyeing_charges_per_kg) / flt(frm.doc.gross_weight_per_piece))
 }
