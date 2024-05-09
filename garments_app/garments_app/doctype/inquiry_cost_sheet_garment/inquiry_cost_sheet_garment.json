@@ -538,6 +538,7 @@
    "reqd": 1
   },
   {
+   "fetch_from": "buyer_name.address",
    "fieldname": "buyer_address",
    "fieldtype": "Small Text",
    "label": "Buyer Address"
@@ -548,7 +549,7 @@
    "label": "City"
   },
   {
-   "fetch_from": "buyer_name.customer_primary_address",
+   "fetch_from": "buyer_name.country",
    "fieldname": "country",
    "fieldtype": "Data",
    "label": "Country"
@@ -792,7 +793,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2024-05-08 21:49:35.500818",
+ "modified": "2024-05-09 21:05:18.907734",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
