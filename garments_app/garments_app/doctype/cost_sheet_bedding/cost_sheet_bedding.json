@@ -292,7 +292,7 @@
   {
    "fieldname": "fabric_details_section",
    "fieldtype": "Section Break",
-   "label": "Fabric Details"
+   "label": "Yarn Details"
   },
   {
    "fieldname": "job_costing_fabric",
@@ -816,7 +816,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2024-05-15 21:16:15.226896",
+ "modified": "2024-05-15 22:19:41.970212",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Cost Sheet Bedding",

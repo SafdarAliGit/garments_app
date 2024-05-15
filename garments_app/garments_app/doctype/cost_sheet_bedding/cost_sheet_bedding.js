@@ -374,6 +374,11 @@ frappe.ui.form.on('Job Costing Fabric', {
         var d = locals[cdt][cdn];
         var rate = (d.rate_lbs || 0) * 2.2046;
         frappe.model.set_value(cdt, cdn, "rate", rate);
+    },
+    pcs: function (frm, cdt, cdn) {
+         var d = locals[cdt][cdn];
+        frappe.model.set_value(cdt, cdn, "fabric_kg", flt(d.qty)*flt(d.pcs));
+        frappe.model.set_value(cdt, cdn, "bags", flt(d.fabric_kg)/45.36);
     }
 });
 frappe.ui.form.on('Job Costing Accessory', {
@@ -426,6 +431,8 @@ function calculate_ratio(frm, cdt, cdn) {
     } else {
         frappe.model.set_value(d.doctype, d.name, "qty", 0);
     }
+    frappe.model.set_value(cdt, cdn, "fabric_kg", flt(d.qty)*flt(d.pcs));
+    frappe.model.set_value(cdt, cdn, "bags", flt(d.fabric_kg)/45.36);
 }
 
 function calculate_amount(frm, cdt, cdn) {
@@ -435,6 +442,8 @@ function calculate_amount(frm, cdt, cdn) {
     } else {
         frappe.model.set_value(d.doctype, d.name, "amount", 0);
     }
+    frappe.model.set_value(cdt, cdn, "fabric_kg", flt(d.qty)*flt(d.pcs));
+    frappe.model.set_value(cdt, cdn, "bags", flt(d.fabric_kg)/45.36);
 }
 
 function calculate_body_gross(frm, cdt, cdn) {
@@ -520,6 +529,8 @@ function calculate_fabric_total(frm) {
     frm.refresh_field("fabrics_total");
     frm.refresh_field("fabric_cost");
     frm.set_value('fabric_cost_per_piece', flt(frm.doc.fabrics_total) * 12);
+    frappe.model.set_value(cdt, cdn, "fabric_kg", flt(d.qty)*flt(d.pcs));
+    frappe.model.set_value(cdt, cdn, "bags", flt(d.fabric_kg)/45.36);
 }
 
 

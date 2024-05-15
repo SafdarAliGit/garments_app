@@ -13,7 +13,10 @@
   "qty",
   "rate",
   "amount",
-  "rate_lbs"
+  "rate_lbs",
+  "pcs",
+  "fabric_kg",
+  "bags"
  ],
  "fields": [
   {
@@ -39,7 +42,7 @@
    "fieldname": "qty",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Qty",
+   "label": "Gross",
    "reqd": 1
   },
   {
@@ -73,7 +76,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Component",
-   "options": "\nRIB\nFleese\nJercy"
+   "options": "\nFabric-1\nFabric-2\nFabric-3\nFabric-4"
   },
   {
    "fieldname": "ratio",
@@ -84,13 +87,36 @@
   {
    "fieldname": "rate_lbs",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Rate(LBS)"
+  },
+  {
+   "fieldname": "pcs",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Pcs"
+  },
+  {
+   "default": "0",
+   "fieldname": "fabric_kg",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Fabric Kg",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "bags",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bags",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-07 18:22:19.722672",
+ "modified": "2024-05-15 23:41:34.305142",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Job Costing Fabric",
