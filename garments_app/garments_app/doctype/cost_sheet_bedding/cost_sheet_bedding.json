@@ -33,11 +33,13 @@
   "fabric_calculation_section",
   "fabric_calculations_bedding",
   "section_break_z3w81",
-  "total_rib",
+  "total_fabric_1",
   "column_break_ul5vq",
-  "total_jercy",
+  "total_fabric_2",
   "column_break_v0znu",
-  "total_fleese",
+  "total_fabric_3",
+  "column_break_lkhmf",
+  "total_fabric_4",
   "column_break_gfnw1",
   "gross_weight",
   "column_break_exeqh",
@@ -258,33 +260,12 @@
    "fieldtype": "Section Break"
   },
   {
-   "default": "0",
-   "fieldname": "total_rib",
-   "fieldtype": "Data",
-   "label": "Total RIB",
-   "read_only": 1
-  },
-  {
    "fieldname": "column_break_ul5vq",
    "fieldtype": "Column Break"
   },
   {
-   "default": "0",
-   "fieldname": "total_jercy",
-   "fieldtype": "Data",
-   "label": "Total Jercy",
-   "read_only": 1
-  },
-  {
    "fieldname": "column_break_v0znu",
    "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "total_fleese",
-   "fieldtype": "Data",
-   "label": "Total Fleese",
-   "read_only": 1
   },
   {
    "fieldname": "column_break_gfnw1",
@@ -785,6 +766,38 @@
    "fieldtype": "Table",
    "label": "Fabric Calculations Bedding",
    "options": "Fabric Calculations Bedding"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_fabric_2",
+   "fieldtype": "Data",
+   "label": "Tot. Fabric-2",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_fabric_1",
+   "fieldtype": "Data",
+   "label": "Tot. Fabric-1",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_fabric_3",
+   "fieldtype": "Data",
+   "label": "Tot. Fabric-3",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_fabric_4",
+   "fieldtype": "Data",
+   "label": "Tot. Fabric-4",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_lkhmf",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -803,7 +816,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2024-05-14 21:02:01.246307",
+ "modified": "2024-05-15 21:16:15.226896",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Cost Sheet Bedding",

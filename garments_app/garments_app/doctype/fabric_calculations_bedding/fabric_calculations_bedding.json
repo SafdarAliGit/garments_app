@@ -16,7 +16,8 @@
   "wastage",
   "sheet_length",
   "sheet_width",
-  "drop"
+  "drop",
+  "fabric_type"
  ],
  "fields": [
   {
@@ -57,7 +58,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Component",
-   "options": "\nRIB\nFleese\nJercy"
+   "options": "\nFabric-1\nFabric-2\nFabric-3\nFabric-4"
   },
   {
    "default": "0",
@@ -84,12 +85,18 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Drop"
+  },
+  {
+   "fieldname": "fabric_type",
+   "fieldtype": "Link",
+   "label": "Fabric",
+   "options": "Fabric Type"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-14 21:01:02.269486",
+ "modified": "2024-05-15 21:18:59.939071",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Fabric Calculations Bedding",
