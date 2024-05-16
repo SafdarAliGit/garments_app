@@ -81,7 +81,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Component",
-   "options": "\nRIB\nFleese\nJercy"
+   "options": "\nFabric-1\nFabric-2\nFabric-3\nFabric-4"
   },
   {
    "fieldname": "sleeve_width",
@@ -125,7 +125,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-14 15:21:56.488105",
+ "modified": "2024-05-16 18:24:32.648263",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Fabric Calculations",

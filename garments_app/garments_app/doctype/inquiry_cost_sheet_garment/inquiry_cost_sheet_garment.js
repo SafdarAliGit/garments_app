@@ -246,27 +246,30 @@ frappe.ui.form.on('Fabric Calculations', {
 
         calculate_body_gross(frm, cdt, cdn);
         calculate_sleeve_gross(frm, cdt, cdn);
-        rib_total(frm);
-        jercy_total(frm);
-        fleese_total(frm);
+        total_fabric_1(frm);
+        total_fabric_2(frm);
+        total_fabric_3(frm);
+        total_fabric_4(frm);
         gross_weight(frm);
     },
     body_length(frm, cdt, cdn) {
         var d = locals[cdt][cdn];
         calculate_body_gross(frm, cdt, cdn);
 
-        rib_total(frm);
-        jercy_total(frm);
-        fleese_total(frm);
+        total_fabric_1(frm);
+        total_fabric_2(frm);
+        total_fabric_3(frm);
+        total_fabric_4(frm);
         gross_weight(frm);
     },
     chestbust(frm, cdt, cdn) {
         var d = locals[cdt][cdn];
         calculate_body_gross(frm, cdt, cdn);
 
-        rib_total(frm);
-        jercy_total(frm);
-        fleese_total(frm);
+        total_fabric_1(frm);
+        total_fabric_2(frm);
+        total_fabric_3(frm);
+        total_fabric_4(frm);
         gross_weight(frm);
     },
     constant(frm, cdt, cdn) {
@@ -274,9 +277,10 @@ frappe.ui.form.on('Fabric Calculations', {
         calculate_body_gross(frm, cdt, cdn);
 
         calculate_sleeve_gross(frm, cdt, cdn)
-        rib_total(frm);
-        jercy_total(frm);
-        fleese_total(frm);
+        total_fabric_1(frm);
+        total_fabric_2(frm);
+        total_fabric_3(frm);
+        total_fabric_4(frm);
         gross_weight(frm);
     },
     sleeve_length(frm, cdt, cdn) {
@@ -284,23 +288,26 @@ frappe.ui.form.on('Fabric Calculations', {
         calculate_body_gross(frm, cdt, cdn);
 
         calculate_sleeve_gross(frm, cdt, cdn)
-        rib_total(frm);
-        jercy_total(frm);
-        fleese_total(frm);
+        total_fabric_1(frm);
+        total_fabric_2(frm);
+        total_fabric_3(frm);
+        total_fabric_4(frm);
         gross_weight(frm);
     },
     sleeve_width(frm, cdt, cdn) {
         var d = locals[cdt][cdn];
         calculate_sleeve_gross(frm, cdt, cdn)
-        rib_total(frm);
-        jercy_total(frm);
-        fleese_total(frm);
+        total_fabric_1(frm);
+        total_fabric_2(frm);
+        total_fabric_3(frm);
+        total_fabric_4(frm);
         gross_weight(frm);
     },
     component(frm) {
-        rib_total(frm);
-        jercy_total(frm);
-        fleese_total(frm);
+        total_fabric_1(frm);
+        total_fabric_2(frm);
+        total_fabric_3(frm);
+        total_fabric_4(frm);
         gross_weight(frm);
     },
     wastage_percentage(frm, cdt, cdn) {
@@ -308,9 +315,10 @@ frappe.ui.form.on('Fabric Calculations', {
 
         calculate_body_gross(frm, cdt, cdn);
         calculate_sleeve_gross(frm, cdt, cdn);
-        rib_total(frm);
-        jercy_total(frm);
-        fleese_total(frm);
+        total_fabric_1(frm);
+        total_fabric_2(frm);
+        total_fabric_3(frm);
+        total_fabric_4(frm);
         gross_weight(frm);
     }
 
@@ -374,15 +382,18 @@ frappe.ui.form.on('Process Items', {
 
 function calculate_ratio(frm, cdt, cdn) {
     var d = locals[cdt][cdn];
-    if (d && d.component == "RIB" && frm.doc.total_rib > 0) {
-        var qty_rib = (d.ratio / 100) * frm.doc.total_rib;
-        frappe.model.set_value(d.doctype, d.name, "qty", qty_rib);
-    } else if (d && d.component == "Jercy" && frm.doc.total_jercy > 0) {
-        var qty_jercy = (d.ratio / 100) * frm.doc.total_jercy;
-        frappe.model.set_value(d.doctype, d.name, "qty", qty_jercy);
-    } else if (d && d.component == "Fleese" && frm.doc.total_fleese > 0) {
-        var qty_fleese = (d.ratio / 100) * frm.doc.total_fleese;
-        frappe.model.set_value(d.doctype, d.name, "qty", qty_fleese);
+    if (d && d.component == "Fabric-1" && frm.doc.total_fabric_1 > 0) {
+        var qty_fabric_1 = (d.ratio / 100) * frm.doc.total_fabric_1;
+        frappe.model.set_value(d.doctype, d.name, "qty", qty_fabric_1);
+    } else if (d && d.component == "Fabric-2" && frm.doc.total_fabric_2 > 0) {
+        var qty_fabric_2 = (d.ratio / 100) * frm.doc.total_fabric_2;
+        frappe.model.set_value(d.doctype, d.name, "qty", qty_fabric_2);
+    } else if (d && d.component == "Fabric-3" && frm.doc.total_fabric_3 > 0) {
+        var qty_fabric_3 = (d.ratio / 100) * frm.doc.total_fabric_3;
+        frappe.model.set_value(d.doctype, d.name, "qty", qty_fabric_3);
+    } else if (d && d.component == "Fabric-4" && frm.doc.total_fabric_4 > 0) {
+        var qty_fabric_4 = (d.ratio / 100) * frm.doc.total_fabric_4;
+        frappe.model.set_value(d.doctype, d.name, "qty", qty_fabric_4);
     } else {
         frappe.model.set_value(d.doctype, d.name, "qty", 0);
     }
@@ -415,24 +426,27 @@ function calculate_sleeve_gross(frm, cdt, cdn) {
 
 function calculate_fabric_total(frm) {
     var jcf = frm.doc.job_costing_fabric;
-    var total_ratio_rib = 0;
-    var total_ratio_fleese = 0;
-    var total_ratio_jercy = 0;
+    var total_fabric_1 = 0;
+    var total_fabric_2 = 0;
+    var total_fabric_3 = 0;
+    var total_fabric_4 = 0;
 
     // Initialize fabrics_total if not already initialized
     frm.doc.fabrics_total = 0;
     frm.doc.fabric_cost = 0;
 
-    // Calculate total ratios for RIB, Fleese, and Jercy
+    // Calculate total ratios for Fabric-1, Fabric-3, and Fabric-2
     for (var i in jcf) {
         var ratio = parseFloat(jcf[i].ratio); // Convert ratio to numeric type
         if (!isNaN(ratio)) {
-            if (jcf[i].component == "RIB") {
-                total_ratio_rib += ratio;
-            } else if (jcf[i].component == "Fleese") {
-                total_ratio_fleese += ratio;
-            } else if (jcf[i].component == "Jercy") {
-                total_ratio_jercy += ratio;
+            if (jcf[i].component == "Fabric-1") {
+                total_fabric_1 += ratio;
+            } else if (jcf[i].component == "Fabric-2") {
+                total_fabric_2 += ratio;
+            } else if (jcf[i].component == "Fabric-3") {
+                total_fabric_3 += ratio;
+            } else if (jcf[i].component == "Fabric-4") {
+                total_fabric_4 += ratio;
             }
             frm.doc.fabrics_total += jcf[i].amount;
             frm.doc.fabric_cost = frm.doc.fabrics_total;
@@ -440,18 +454,21 @@ function calculate_fabric_total(frm) {
     }
 
     // Check if total ratio for any component exceeds 100
-    if (total_ratio_rib > 100 || total_ratio_fleese > 100 || total_ratio_jercy > 100) {
+    if (total_fabric_1 > 100 || total_fabric_2 > 100 || total_fabric_3 > 100 || total_fabric_4 > 100) {
         var component;
         var adjust_ratio;
-        if (total_ratio_rib > 100) {
-            component = "RIB";
-            adjust_ratio = total_ratio_rib - 100;
-        } else if (total_ratio_fleese > 100) {
-            component = "Fleese";
-            adjust_ratio = total_ratio_fleese - 100;
-        } else if (total_ratio_jercy > 100) {
-            component = "Jercy";
-            adjust_ratio = total_ratio_jercy - 100;
+        if (total_fabric_1 > 100) {
+            component = "Fabric-1";
+            adjust_ratio = total_fabric_1 - 100;
+        } else if (total_fabric_2 > 100) {
+            component = "Fabric-2";
+            adjust_ratio = total_fabric_2 - 100;
+        } else if (total_fabric_3 > 100) {
+            component = "Fabric-3";
+            adjust_ratio = total_fabric_3 - 100;
+        } else if (total_fabric_4 > 100) {
+            component = "Fabric-4";
+            adjust_ratio = total_fabric_4 - 100;
         }
 
         // Find the last entry for the component and adjust its ratio
@@ -477,37 +494,48 @@ function calculate_fabric_total(frm) {
 }
 
 
-function rib_total(frm) {
+function total_fabric_1(frm) {
     var fc = frm.doc.fabric_calculations;
-    frm.doc.total_rib = 0;
+    frm.doc.total_fabric_1 = 0;
     for (var i in fc) {
-        if (fc[i].component == "RIB") {
-            frm.doc.total_rib += fc[i].body_gross
+        if (fc[i].component == "Fabric-1") {
+            frm.doc.total_fabric_1 += fc[i].body_gross
         }
     }
-    frm.refresh_field("total_rib")
+    frm.refresh_field("total_fabric_1");
 }
 
-function jercy_total(frm) {
+function total_fabric_2(frm) {
     var fc = frm.doc.fabric_calculations;
-    frm.doc.total_jercy = 0;
+    frm.doc.total_fabric_2 = 0;
     for (var i in fc) {
-        if (fc[i].component == "Jercy") {
-            frm.doc.total_jercy += fc[i].body_gross
+        if (fc[i].component == "Fabric-2") {
+            frm.doc.total_fabric_2 += fc[i].body_gross
         }
     }
-    frm.refresh_field("total_jercy")
+    frm.refresh_field("total_fabric_2");
 }
 
-function fleese_total(frm) {
+function total_fabric_3(frm) {
     var fc = frm.doc.fabric_calculations;
-    frm.doc.total_fleese = 0;
+    frm.doc.total_fabric_3 = 0;
     for (var i in fc) {
-        if (fc[i].component == "Fleese") {
-            frm.doc.total_fleese += fc[i].body_gross
+        if (fc[i].component == "Fabric-3") {
+            frm.doc.total_fabric_3 += fc[i].body_gross
         }
     }
-    frm.refresh_field("total_fleese")
+    frm.refresh_field("total_fabric_3");
+}
+
+function total_fabric_4(frm) {
+    var fc = frm.doc.fabric_calculations;
+    frm.doc.total_fabric_4 = 0;
+    for (var i in fc) {
+        if (fc[i].component == "Fabric-4") {
+            frm.doc.total_fabric_4 += fc[i].body_gross
+        }
+    }
+    frm.refresh_field("total_fabric_4");
 }
 
 function calculate_accessories_total(frm) {
@@ -548,17 +576,17 @@ function gross_weight(frm) {
 
     var total_fabric_cost = 0;
     var net_making_cost = 0;
-    total_fabric_cost = (flt(frm.doc.knitting_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.dyeing_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.printing_charges_per_kg) * flt(frm.doc.gross_weight))+ flt(frm.doc.fabric_cost);
+    total_fabric_cost = (flt(frm.doc.knitting_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.dyeing_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.printing_charges_per_kg) * flt(frm.doc.gross_weight)) + flt(frm.doc.fabric_cost);
     frm.set_value("total_fabric_cost", total_fabric_cost);
     net_making_cost = total_fabric_cost + frm.doc.cm_cost + frm.doc.trims_and_accessories_cost;
-    frm.set_value("net_making_cost",net_making_cost);
+    frm.set_value("net_making_cost", net_making_cost);
 }
 
 function total_fabric_cost(frm) {
     var total_fabric_cost = 0;
     var net_making_cost = 0;
-    total_fabric_cost = (flt(frm.doc.knitting_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.dyeing_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.printing_charges_per_kg) * flt(frm.doc.gross_weight))+ flt(frm.doc.fabric_cost);
+    total_fabric_cost = (flt(frm.doc.knitting_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.dyeing_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.printing_charges_per_kg) * flt(frm.doc.gross_weight)) + flt(frm.doc.fabric_cost);
     frm.set_value("total_fabric_cost", total_fabric_cost);
     net_making_cost = total_fabric_cost + frm.doc.cm_cost + frm.doc.trims_and_accessories_cost;
-    frm.set_value("net_making_cost",net_making_cost);
+    frm.set_value("net_making_cost", net_making_cost);
 }

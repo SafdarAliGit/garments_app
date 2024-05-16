@@ -33,12 +33,14 @@
   "fabric_calculation_section",
   "fabric_calculations",
   "section_break_z3w81",
-  "total_rib",
+  "total_fabric_1",
   "column_break_ul5vq",
-  "total_jercy",
+  "total_fabric_2",
   "column_break_v0znu",
-  "total_fleese",
+  "total_fabric_3",
   "column_break_gfnw1",
+  "total_fabric_4",
+  "column_break_jmfgc",
   "gross_weight",
   "column_break_exeqh",
   "gross_weight_per_piece",
@@ -614,29 +616,8 @@
    "options": "Fabric Calculations"
   },
   {
-   "default": "0",
-   "fieldname": "total_rib",
-   "fieldtype": "Data",
-   "label": "Total RIB",
-   "read_only": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "total_jercy",
-   "fieldtype": "Data",
-   "label": "Total Jercy",
-   "read_only": 1
-  },
-  {
    "fieldname": "column_break_ul5vq",
    "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "total_fleese",
-   "fieldtype": "Data",
-   "label": "Total Fleese",
-   "read_only": 1
   },
   {
    "fieldname": "section_break_z3w81",
@@ -775,6 +756,38 @@
    "fieldtype": "Data",
    "label": "Total Fabric Cost",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_fabric_1",
+   "fieldtype": "Data",
+   "label": "Tot. Fabric-1",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_fabric_2",
+   "fieldtype": "Data",
+   "label": "Tot. Fabric-2",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_fabric_3",
+   "fieldtype": "Data",
+   "label": "Tot. Fabric-3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_jmfgc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_fabric_4",
+   "fieldtype": "Data",
+   "label": "Tot. Fabric-4",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -793,7 +806,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2024-05-09 21:05:18.907734",
+ "modified": "2024-05-16 18:32:52.920265",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
