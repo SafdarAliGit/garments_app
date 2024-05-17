@@ -20,7 +20,8 @@
   "wastage",
   "sheet_length",
   "sheet_width",
-  "drop"
+  "drop",
+  "part"
  ],
  "fields": [
   {
@@ -40,13 +41,13 @@
    "fieldname": "body_length",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Body Length"
+   "label": "Length-1"
   },
   {
    "fieldname": "chestbust",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Chest/Bust"
+   "label": "Width"
   },
   {
    "default": "0",
@@ -60,7 +61,7 @@
    "fieldname": "sleeve_length",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Sleeve Length"
+   "label": "Length-2"
   },
   {
    "default": "0",
@@ -120,12 +121,19 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Drop"
+  },
+  {
+   "fieldname": "part",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Part",
+   "options": "\nShirt\nT-Shirt\nJacket\nHoodie\nBarmuda\nKids\nTrouser\nJeans"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-16 18:24:32.648263",
+ "modified": "2024-05-16 20:00:21.378129",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Fabric Calculations",

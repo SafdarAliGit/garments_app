@@ -796,17 +796,9 @@
   {
    "link_doctype": "Purchase Order",
    "link_fieldname": "job_costing"
-  },
-  {
-   "link_doctype": "Denim and Knitting Production Order",
-   "link_fieldname": "job_costing"
-  },
-  {
-   "link_doctype": "Denim Operation",
-   "link_fieldname": "job_costing"
   }
  ],
- "modified": "2024-05-16 18:32:52.920265",
+ "modified": "2024-05-17 18:57:22.922618",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",

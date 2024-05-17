@@ -1,5 +1,29 @@
 frappe.ui.form.on('Cost Sheet Bedding', {
     refresh(frm) {
+                frm.add_custom_button(__('Sample Form'), function () {
+            frappe.new_doc('Sample Form', {
+                'inquiry_id': frm.doc.name,
+                'buyer_name': frm.doc.buyer_name,
+                'inquiry_date': frm.doc.inquiry_date,
+                'agent': frm.doc.agent,
+                'country': frm.doc.country,
+                'order_qty': frm.doc.order_qty,
+                'city': frm.doc.city,
+                'buyer_address': frm.doc.buyer_address,
+                'costing_parent': frm.doc.name,
+                'costing_parenttype': 'Cost Sheet Bedding',
+                'costing_parentfield': 'name',
+                'sample_type': frm.doc.sample_type,
+                'article_no': frm.doc.article_no,
+                'style': frm.doc.style,
+                'product': frm.doc.product,
+                'product_name': frm.doc.product_name,
+                'product_description': frm.doc.product_description,
+                'season': frm.doc.season,
+                'pdm_key': frm.doc.pdm_key,
+                'size_range': frm.doc.size_range
+            });
+        }),
         frm.set_query('item_code', 'accessories', function (doc, cdt, cdn) {
             var d = locals[cdt][cdn];
             return {
