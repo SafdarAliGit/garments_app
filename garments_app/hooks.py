@@ -215,9 +215,9 @@ app_license = "MIT"
 # auth_hooks = [
 #	"garments_app.auth.validate"
 # ]
-override_doctype_class = {
-	"Subcontracting Order": "garments_app.overrides.OverriddenSubcontractingOrder"
-}
+# override_doctype_class = {
+# 	"Subcontracting Order": "garments_app.overrides.OverriddenSubcontractingOrder"
+# }
 
 doc_events = {
 # 	"*": {
@@ -230,7 +230,8 @@ doc_events = {
 	},
 	"BOM": {
 		"validate": "garments_app.events.bom.bom_validation_for_percentage_fields"
-	},
+	}
+	,
 	"Subcontracting Order": {
 		"validate": "garments_app.events.subcontracting_order.calculate_total_reqiured_qty_and_no_bags"
 	}
