@@ -33,7 +33,7 @@ class InquiryCostSheetGarment(Document):
 		so.inquiry_cost_sheet_garment = self.name
 		so.posting_date = frappe.utils.nowdate()
 		so.delivery_date = frappe.utils.nowdate()
-		so.customer = self.buyer
+		so.customer = self.buyer_name
 		so.currency = self.currency
 		so.conversion_rate = self.exchange_rate
 		so.append("items", {
