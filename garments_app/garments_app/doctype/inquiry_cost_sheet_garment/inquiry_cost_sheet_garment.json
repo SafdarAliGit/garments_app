@@ -638,15 +638,17 @@
   {
    "default": "0",
    "fieldname": "gross_weight",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Gross Weight",
+   "precision": "3",
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "gross_weight_per_piece",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Gross wt/DZN",
+   "precision": "3",
    "read_only": 1
   },
   {
@@ -656,8 +658,9 @@
   {
    "default": "0",
    "fieldname": "fabric_cost_per_piece",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Fabric Cost/DZN",
+   "precision": "3",
    "read_only": 1
   },
   {
@@ -746,7 +749,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2026-04-23 17:19:52.223559",
+ "modified": "2026-04-23 18:12:26.913788",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
