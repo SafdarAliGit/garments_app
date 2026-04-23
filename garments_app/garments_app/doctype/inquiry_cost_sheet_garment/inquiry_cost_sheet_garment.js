@@ -32,7 +32,15 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
             return {
                 filters: [["Item", "item_group", "=", "Trims"]]
             };
-        }), /*frm.add_custom_button("Create PO", function(){
+        }), 
+        frm.set_query('item_code', 'fabric_calculations', function (doc, cdt, cdn) {
+            var d = locals[cdt][cdn];
+            return {
+                filters: [["Item", "item_group", "=", "Fabric"]]
+            };
+        }), 
+        
+        /*frm.add_custom_button("Create PO", function(){
                 frappe.prompt([
                     {'fieldname': 'supplier', 'fieldtype': 'Link', 'options':'Supplier', 'label': 'Suppler', 'reqd': 1}
                 ],

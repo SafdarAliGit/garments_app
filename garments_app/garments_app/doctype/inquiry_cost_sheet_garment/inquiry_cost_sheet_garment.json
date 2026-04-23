@@ -33,14 +33,6 @@
   "fabric_calculation_section",
   "fabric_calculations",
   "section_break_z3w81",
-  "total_fabric_1",
-  "column_break_ul5vq",
-  "total_fabric_2",
-  "column_break_v0znu",
-  "total_fabric_3",
-  "column_break_gfnw1",
-  "total_fabric_4",
-  "column_break_jmfgc",
   "gross_weight",
   "column_break_exeqh",
   "gross_weight_per_piece",
@@ -616,16 +608,8 @@
    "options": "Fabric Calculations"
   },
   {
-   "fieldname": "column_break_ul5vq",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "section_break_z3w81",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_v0znu",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "job_costing_fabric",
@@ -657,10 +641,6 @@
    "fieldtype": "Data",
    "label": "Gross Weight",
    "read_only": 1
-  },
-  {
-   "fieldname": "column_break_gfnw1",
-   "fieldtype": "Column Break"
   },
   {
    "default": "0",
@@ -756,38 +736,6 @@
    "fieldtype": "Data",
    "label": "Total Fabric Cost",
    "read_only": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "total_fabric_1",
-   "fieldtype": "Data",
-   "label": "Tot. Fabric-1",
-   "read_only": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "total_fabric_2",
-   "fieldtype": "Data",
-   "label": "Tot. Fabric-2",
-   "read_only": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "total_fabric_3",
-   "fieldtype": "Data",
-   "label": "Tot. Fabric-3",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_jmfgc",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "total_fabric_4",
-   "fieldtype": "Data",
-   "label": "Tot. Fabric-4",
-   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -798,7 +746,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2024-05-17 18:57:22.922618",
+ "modified": "2026-04-23 17:19:52.223559",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",

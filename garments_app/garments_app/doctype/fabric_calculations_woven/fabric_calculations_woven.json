@@ -90,24 +90,22 @@
    "label": "Required Pcs"
   },
   {
-   "description": "(Per Pcs Length / Width) * Required Pcs",
+   "description": "Per Pcs Length  *  Required Pcs",
    "fieldname": "required_fabric",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Required Fabric"
   }
  ],
- "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-02-04 16:43:08.395545",
+ "modified": "2026-02-12 20:41:00.624255",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Fabric Calculations Woven",
  "owner": "Administrator",
  "permissions": [],
- "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

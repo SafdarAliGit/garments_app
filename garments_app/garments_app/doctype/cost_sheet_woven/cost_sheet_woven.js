@@ -268,6 +268,19 @@ function set_accessories_total(frm) {
 
 
 frappe.ui.form.on('Fabric Calculations Woven', {
+    required_pcs(frm, cdt, cdn) {
+        length_mtr(frm, cdt, cdn);
+        per_pcs_width(frm, cdt, cdn);
+        per_pcs_length(frm, cdt, cdn);
+        required_fabric(frm, cdt, cdn);
+        calculate_body_gross(frm, cdt, cdn);
+        calculate_sleeve_gross(frm, cdt, cdn);
+        total_fabric_1(frm);
+        total_fabric_2(frm);
+        total_fabric_3(frm);
+        total_fabric_4(frm);
+        gross_weight(frm);
+    },
     gsm(frm, cdt, cdn) {
         length_mtr(frm, cdt, cdn);
         per_pcs_width(frm, cdt, cdn);
@@ -346,7 +359,7 @@ frappe.ui.form.on('Fabric Calculations Woven', {
         total_fabric_4(frm);
         gross_weight(frm);
     },
-    component(frm) {
+    component(frm, cdt, cdn) {
         length_mtr(frm, cdt, cdn);
         per_pcs_width(frm, cdt, cdn);
         per_pcs_length(frm, cdt, cdn);
@@ -637,46 +650,50 @@ function calculate_fabric_total(frm) {
 
 
 function total_fabric_1(frm) {
-    var fc = frm.doc.fabric_calculations;
-    frm.doc.total_fabric_1 = 0;
+    var fc = frm.doc.fabric_calculations_woven;
+    var total_fabric_1 = 0;
     for (var i in fc) {
         if (fc[i].component == "Fabric-1") {
-            frm.doc.total_fabric_1 += fc[i].body_gross
+            total_fabric_1 += fc[i].body_gross
         }
     }
+    frm.set_value("total_fabric_1", total_fabric_1);
     frm.refresh_field("total_fabric_1");
 }
 
 function total_fabric_2(frm) {
-    var fc = frm.doc.fabric_calculations;
-    frm.doc.total_fabric_2 = 0;
+    var fc = frm.doc.fabric_calculations_woven;
+    var total_fabric_2 = 0;
     for (var i in fc) {
         if (fc[i].component == "Fabric-2") {
-            frm.doc.total_fabric_2 += fc[i].body_gross
+            total_fabric_2 += fc[i].body_gross
         }
     }
+    frm.set_value("total_fabric_2", total_fabric_2);
     frm.refresh_field("total_fabric_2");
 }
 
 function total_fabric_3(frm) {
-    var fc = frm.doc.fabric_calculations;
-    frm.doc.total_fabric_3 = 0;
+    var fc = frm.doc.fabric_calculations_woven;
+    var total_fabric_3 = 0;
     for (var i in fc) {
         if (fc[i].component == "Fabric-3") {
-            frm.doc.total_fabric_3 += fc[i].body_gross
+            total_fabric_3 += fc[i].body_gross
         }
     }
+    frm.set_value("total_fabric_3", total_fabric_3);
     frm.refresh_field("total_fabric_3");
 }
 
 function total_fabric_4(frm) {
-    var fc = frm.doc.fabric_calculations;
-    frm.doc.total_fabric_4 = 0;
+    var fc = frm.doc.fabric_calculations_woven;
+    var total_fabric_4 = 0;
     for (var i in fc) {
         if (fc[i].component == "Fabric-4") {
-            frm.doc.total_fabric_4 += fc[i].body_gross
+            total_fabric_4 += fc[i].body_gross
         }
     }
+    frm.set_value("total_fabric_4", total_fabric_4);
     frm.refresh_field("total_fabric_4");
 }
 
@@ -700,7 +717,7 @@ function per_pcs_length(frm, cdt, cdn) {
 
 function required_fabric(frm, cdt, cdn) {
     var d = locals[cdt][cdn];
-    var required_fabric = (flt(d.per_pcs_length) / flt(d.width)) * flt(d.required_pcs);
+    var required_fabric = flt(d.per_pcs_length) * flt(d.required_pcs);
     frappe.model.set_value(d.doctype, d.name, "required_fabric", required_fabric);
 }
 

@@ -7,7 +7,6 @@
  "field_order": [
   "item_code",
   "item_name",
-  "component",
   "ratio",
   "uom",
   "qty",
@@ -72,13 +71,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "component",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Component",
-   "options": "\nFabric-1\nFabric-2\nFabric-3\nFabric-4"
-  },
-  {
    "fieldname": "ratio",
    "fieldtype": "Float",
    "in_list_view": 1,
@@ -116,7 +108,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-15 23:41:34.305142",
+ "modified": "2026-04-23 17:21:05.069355",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Job Costing Fabric",
