@@ -20,6 +20,7 @@
   "article_detail_section",
   "article_no",
   "style",
+  "is_active",
   "column_break_9hyfb",
   "product",
   "product_name",
@@ -555,8 +556,9 @@
   },
   {
    "fieldname": "article_no",
-   "fieldtype": "Data",
-   "label": "Article No"
+   "fieldtype": "Link",
+   "label": "Article No",
+   "options": "Item"
   },
   {
    "fieldname": "product",
@@ -739,6 +741,12 @@
    "fieldtype": "Data",
    "label": "Total Fabric Cost",
    "read_only": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -749,7 +757,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2026-04-23 18:12:26.913788",
+ "modified": "2026-04-23 18:26:43.469777",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",

@@ -51,6 +51,11 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
                 filters: [["Item", "item_group", "=", "Yarn"]]
             };
         }),
+        frm.set_query('article_no', function (doc, cdt, cdn) {
+            return {
+                filters: [["Item", "item_group", "=", "Products"]]
+            };
+        }),
         
         /*frm.add_custom_button("Create PO", function(){
                 frappe.prompt([
