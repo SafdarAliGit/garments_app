@@ -1,8 +1,8 @@
 frappe.ui.form.on('Sales Order', {
     refresh(frm) {
-        frm.add_custom_button(__('Raw Material Request'), function() {
+        frm.add_custom_button(__('Fabric Material Request'), function() {
             let dialog = new frappe.ui.Dialog({
-                title: __('Create Raw Material Request'),
+                title: __('Create Fabric Material Request'),
                 fields: [
                     {
                         fieldtype: "Date",
