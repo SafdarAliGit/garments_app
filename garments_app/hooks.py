@@ -1,4 +1,3 @@
-from . import __version__ as app_version
 
 app_name = "garments_app"
 app_title = "Garments App"
@@ -7,6 +6,25 @@ app_description = "this is new garments app"
 app_email = "safdar211@gamil.com"
 app_license = "MIT"
 
+doc_events = {
+# 	"*": {
+# 		"on_update": "method",
+# 		"on_cancel": "method",
+# 		"on_trash": "method"
+#	},
+	"Purchase Order":{
+		"before_submit": "garments_app.events.purchase_order.validate"
+	},
+	"BOM": {
+		"validate": "garments_app.events.bom.bom_validation_for_percentage_fields"
+	}
+	,
+	"Subcontracting Order": {
+		"validate": "garments_app.events.subcontracting_order.calculate_total_reqiured_qty_and_no_bags"
+	}
+}
+
+doctype_js = {"Sales Order" : "public/js/sales_order.js"}
 # Includes in <head>
 # ------------------
 
@@ -29,7 +47,7 @@ app_license = "MIT"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -219,41 +237,25 @@ app_license = "MIT"
 # 	"Subcontracting Order": "garments_app.overrides.OverriddenSubcontractingOrder"
 # }
 
-doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	},
-	"Purchase Order":{
-		"before_submit": "garments_app.events.purchase_order.validate"
-	},
-	"BOM": {
-		"validate": "garments_app.events.bom.bom_validation_for_percentage_fields"
-	}
-	,
-	"Subcontracting Order": {
-		"validate": "garments_app.events.subcontracting_order.calculate_total_reqiured_qty_and_no_bags"
-	}
-}
 
-user_data_fields = [
-	{
-		"doctype": "{doctype_1}",
-		"filter_by": "{filter_by}",
-		"redact_fields": ["{field_1}", "{field_2}"],
-		"partial": 1,
-	},
-	{
-		"doctype": "{doctype_2}",
-		"filter_by": "{filter_by}",
-		"partial": 1,
-	},
-	{
-		"doctype": "{doctype_3}",
-		"strict": False,
-	},
-	{
-		"doctype": "{doctype_4}"
-	}
-]
+
+# user_data_fields = [
+# 	{
+# 		"doctype": "{doctype_1}",
+# 		"filter_by": "{filter_by}",
+# 		"redact_fields": ["{field_1}", "{field_2}"],
+# 		"partial": 1,
+# 	},
+# 	{
+# 		"doctype": "{doctype_2}",
+# 		"filter_by": "{filter_by}",
+# 		"partial": 1,
+# 	},
+# 	{
+# 		"doctype": "{doctype_3}",
+# 		"strict": False,
+# 	},
+# 	{
+# 		"doctype": "{doctype_4}"
+# 	}
+# ]
