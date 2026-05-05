@@ -24,7 +24,7 @@ doc_events = {
 	}
 }
 
-doctype_js = {"Sales Order" : "public/js/sales_order.js"}
+
 # Includes in <head>
 # ------------------
 
