@@ -239,9 +239,7 @@ frappe.ui.form.on('Fabric Calculations', {
     body_gross(frm, cdt, cdn) {
         calculate_total_body_gross(frm, cdt, cdn);
     },
-    wastage_percentage(frm, cdt, cdn) {
-        calculate_total_body_gross(frm, cdt, cdn);
-    },
+ 
     gsm(frm, cdt, cdn) {
 
         // calculate_body_gross(frm, cdt, cdn);
@@ -305,7 +303,7 @@ frappe.ui.form.on('Fabric Calculations', {
         total_fabric_4(frm);
         gross_weight(frm);
     }, wastage_percentage(frm, cdt, cdn) {
-
+         calculate_total_body_gross(frm, cdt, cdn);
 
         // calculate_body_gross(frm, cdt, cdn);
         calculate_sleeve_gross(frm, cdt, cdn);
