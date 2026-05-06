@@ -404,10 +404,17 @@ function calculate_amount(frm, cdt, cdn) {
 
 function calculate_total_body_gross(frm, cdt, cdn) {
     var d = locals[cdt][cdn];
-    var body_gross = d.body_gross || 0;
-    var wastage = body_gross * flt(d.wastage_percentage || 0) / 100;   
-    frappe.model.set_value(d.doctype, d.name, "wastage", wastage);
-    frappe.model.set_value(d.doctype, d.name,"total_body_gross", body_gross + wastage);
+
+    var body_gross = flt(d.body_gross, precision("body_gross", d));
+    var wastage_percentage = flt(d.wastage_percentage, precision("wastage_percentage", d));
+
+    var wastage = flt((body_gross * wastage_percentage) / 100, precision("wastage", d));
+    var total_body_gross = flt(body_gross + wastage, precision("total_body_gross", d));
+
+    frappe.model.set_value(cdt, cdn, {
+        wastage: wastage,
+        total_body_gross: total_body_gross
+    });
 }
 
 function calculate_sleeve_gross(frm, cdt, cdn) {
