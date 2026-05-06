@@ -243,7 +243,6 @@ frappe.ui.form.on('Fabric Calculations', {
         calculate_total_body_gross(frm, cdt, cdn);
     },
     gsm(frm, cdt, cdn) {
-        var d = locals[cdt][cdn];
 
         // calculate_body_gross(frm, cdt, cdn);
         calculate_sleeve_gross(frm, cdt, cdn);
@@ -254,7 +253,7 @@ frappe.ui.form.on('Fabric Calculations', {
         gross_weight(frm);
     }, 
     body_length(frm, cdt, cdn) {
-        var d = locals[cdt][cdn];
+
         // calculate_body_gross(frm, cdt, cdn);
 
         total_fabric_1(frm);
@@ -263,7 +262,7 @@ frappe.ui.form.on('Fabric Calculations', {
         total_fabric_4(frm);
         gross_weight(frm);
     }, chestbust(frm, cdt, cdn) {
-        var d = locals[cdt][cdn];
+
         // calculate_body_gross(frm, cdt, cdn);
 
         total_fabric_1(frm);
@@ -272,7 +271,7 @@ frappe.ui.form.on('Fabric Calculations', {
         total_fabric_4(frm);
         gross_weight(frm);
     }, constant(frm, cdt, cdn) {
-        var d = locals[cdt][cdn];
+  
         // calculate_body_gross(frm, cdt, cdn);
 
         calculate_sleeve_gross(frm, cdt, cdn)
@@ -282,7 +281,7 @@ frappe.ui.form.on('Fabric Calculations', {
         total_fabric_4(frm);
         gross_weight(frm);
     }, sleeve_length(frm, cdt, cdn) {
-        var d = locals[cdt][cdn];
+
         // calculate_body_gross(frm, cdt, cdn);
 
         calculate_sleeve_gross(frm, cdt, cdn)
@@ -292,7 +291,7 @@ frappe.ui.form.on('Fabric Calculations', {
         total_fabric_4(frm);
         gross_weight(frm);
     }, sleeve_width(frm, cdt, cdn) {
-        var d = locals[cdt][cdn];
+
         calculate_sleeve_gross(frm, cdt, cdn)
         total_fabric_1(frm);
         total_fabric_2(frm);
@@ -306,7 +305,7 @@ frappe.ui.form.on('Fabric Calculations', {
         total_fabric_4(frm);
         gross_weight(frm);
     }, wastage_percentage(frm, cdt, cdn) {
-        var d = locals[cdt][cdn];
+
 
         // calculate_body_gross(frm, cdt, cdn);
         calculate_sleeve_gross(frm, cdt, cdn);
