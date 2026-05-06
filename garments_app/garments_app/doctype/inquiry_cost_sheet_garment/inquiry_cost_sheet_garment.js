@@ -236,6 +236,12 @@ function set_accessories_total(frm) {
 
 
 frappe.ui.form.on('Fabric Calculations', {
+    body_gross(frm, cdt, cdn) {
+        calculate_total_body_gross(frm, cdt, cdn);
+    },
+    wastage_percentage(frm, cdt, cdn) {
+        calculate_total_body_gross(frm, cdt, cdn);
+    },
     gsm(frm, cdt, cdn) {
         var d = locals[cdt][cdn];
 
@@ -246,7 +252,8 @@ frappe.ui.form.on('Fabric Calculations', {
         total_fabric_3(frm);
         total_fabric_4(frm);
         gross_weight(frm);
-    }, body_length(frm, cdt, cdn) {
+    }, 
+    body_length(frm, cdt, cdn) {
         var d = locals[cdt][cdn];
         // calculate_body_gross(frm, cdt, cdn);
 
@@ -388,12 +395,20 @@ function calculate_amount(frm, cdt, cdn) {
     }
 }
 
-function calculate_body_gross(frm, cdt, cdn) {
+// function calculate_body_gross(frm, cdt, cdn) {
+//     var d = locals[cdt][cdn];
+//     var body_gross = (((flt(d.body_length || 0) + flt(d.sleeve_length || 0)) * (flt(d.chestbust || 1) * flt(d.gsm || 1)) / flt(d.constant || 1)) / 1000) * 2;
+//     var wastage = body_gross * flt(d.wastage_percentage || 0) / 100;
+//     frappe.model.set_value(d.doctype, d.name, "wastage", wastage);
+//     frappe.model.set_value(d.doctype, d.name, "body_gross", body_gross + wastage);
+// }
+
+function calculate_total_body_gross(frm, cdt, cdn) {
     var d = locals[cdt][cdn];
-    var body_gross = (((flt(d.body_length || 0) + flt(d.sleeve_length || 0)) * (flt(d.chestbust || 1) * flt(d.gsm || 1)) / flt(d.constant || 1)) / 1000) * 2;
-    var wastage = body_gross * flt(d.wastage_percentage || 0) / 100;
+    var body_gross = d.body_gross || 0;
+    var wastage = body_gross * flt(d.wastage_percentage || 0) / 100;   
     frappe.model.set_value(d.doctype, d.name, "wastage", wastage);
-    frappe.model.set_value(d.doctype, d.name, "body_gross", body_gross + wastage);
+    frappe.model.set_value(d.doctype, d.name,"total_body_gross", body_gross + wastage);
 }
 
 function calculate_sleeve_gross(frm, cdt, cdn) {
@@ -546,7 +561,7 @@ function gross_weight(frm) {
     var gw = frm.doc.fabric_calculations;
     frm.doc.gross_weight = 0;
     for (var i in gw) {
-        frm.doc.gross_weight += gw[i].body_gross;
+        frm.doc.gross_weight += gw[i].total_body_gross;
     }
     frm.refresh_field("gross_weight");
     frm.set_value("gross_weight_per_piece", flt(frm.doc.gross_weight) * 12);
