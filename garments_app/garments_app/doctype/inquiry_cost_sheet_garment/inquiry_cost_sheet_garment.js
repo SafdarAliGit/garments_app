@@ -27,12 +27,17 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
                 'size_range': frm.doc.size_range
             });
         }),
-            frm.set_query('item_code', 'accessories', function (doc, cdt, cdn) {
-            var d = locals[cdt][cdn];
-            return {
-                filters: [["Item", "item_group", "=", "Trims"]]
+       
+        
+        frm.set_query('item_code', 'accessories', function(doc, cdt, cdn) {
+        return {
+            query: 'garments_app.events.get_items_by_group.get_items_by_group',
+            filters: {
+                    parent_group: 'Trims'
+                }
             };
-        }), 
+        });
+
         frm.set_query('item_code', 'fabric_calculations', function (doc, cdt, cdn) {
             var d = locals[cdt][cdn];
             return {
