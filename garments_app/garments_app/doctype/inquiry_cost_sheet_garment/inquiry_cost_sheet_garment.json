@@ -124,6 +124,7 @@
    "options": "Sales Partner"
   },
   {
+   "fetch_from": "article_no.custom_style",
    "fieldname": "style",
    "fieldtype": "Link",
    "label": "Style",
@@ -562,9 +563,9 @@
   },
   {
    "fieldname": "product",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Product",
-   "options": "\nkids\nTrouser\nJeans"
+   "options": "Product Type"
   },
   {
    "fieldname": "product_name",
@@ -757,7 +758,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2026-04-23 18:26:43.469777",
+ "modified": "2026-05-14 21:32:13.601058",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",

@@ -1,4 +1,7 @@
 
+
+
+
 app_name = "garments_app"
 app_title = "Garments App"
 app_publisher = "Tech Ventured"
@@ -23,6 +26,7 @@ doc_events = {
 		"validate": "garments_app.events.subcontracting_order.calculate_total_reqiured_qty_and_no_bags"
 	}
 }
+
 
 
 # Includes in <head>
