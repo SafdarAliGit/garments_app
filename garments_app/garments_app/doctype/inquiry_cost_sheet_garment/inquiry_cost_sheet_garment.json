@@ -573,6 +573,7 @@
    "label": "Product Name"
   },
   {
+   "fetch_from": "article_no.description",
    "fieldname": "product_description",
    "fieldtype": "Small Text",
    "label": "Product Description"
@@ -758,7 +759,7 @@
    "link_fieldname": "job_costing"
   }
  ],
- "modified": "2026-05-14 21:32:13.601058",
+ "modified": "2026-05-14 21:35:14.365848",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
