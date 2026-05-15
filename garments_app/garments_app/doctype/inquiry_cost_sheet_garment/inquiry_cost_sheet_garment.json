@@ -757,9 +757,13 @@
   {
    "link_doctype": "Purchase Order",
    "link_fieldname": "job_costing"
+  },
+  {
+   "link_doctype": "BOM",
+   "link_fieldname": "custom_inquiry_cost_sheet_garment"
   }
  ],
- "modified": "2026-05-14 21:35:14.365848",
+ "modified": "2026-05-15 22:22:03.656319",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",

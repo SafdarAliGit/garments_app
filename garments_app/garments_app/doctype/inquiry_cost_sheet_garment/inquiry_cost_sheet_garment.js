@@ -3,6 +3,9 @@
 
 frappe.ui.form.on('Inquiry Cost Sheet Garment', {
     refresh(frm) {
+        frm.add_custom_button(__('Create Fabric BOM'), function () {
+            create_fabric_bom(frm);
+        }).css({'background-color': '#068524','color':'#fff'});
         frm.add_custom_button(__('Sample Form'), function () {
             frappe.new_doc('Sample Form', {
                 'inquiry_id': frm.doc.name,
@@ -594,3 +597,44 @@ function total_fabric_cost(frm) {
     net_making_cost = total_fabric_cost + frm.doc.cm_cost + frm.doc.trims_and_accessories_cost;
     frm.set_value("net_making_cost", net_making_cost);
 }
+
+function create_fabric_bom(frm) {
+    frappe.call({
+        method: "garments_app.events.create_fabric_bom.create_fabric_bom",
+        args: { docname: frm.doc.name },
+        freeze: true,
+        freeze_message: __("Creating BOMs, please wait..."),
+        callback(r) {
+            if (!r.exc) {
+                let created = r.message.created || [];
+                let skipped = r.message.skipped || [];
+                let msg = "";
+
+                if (created.length) {
+                    msg += `<b>Created:</b> ${created.join(", ")}<br>`;
+                }
+                if (skipped.length) {
+                    msg += `<b>Skipped (BOM already exists):</b> ${skipped.join(", ")}`;
+                }
+                if (!created.length && !skipped.length) {
+                    msg = __("No BOMs were created.");
+                }
+
+                frappe.msgprint({
+                    title: __("BOM Creation Summary"),
+                    message: msg,
+                    indicator: created.length ? "green" : "orange"
+                });
+
+                frm.reload_doc();
+            } else {
+                frappe.show_alert({
+                    message: __("Failed to create BOMs. Please check the error."),
+                    indicator: "red"
+                }, 5);
+            }
+        }
+    });
+}
+
+
