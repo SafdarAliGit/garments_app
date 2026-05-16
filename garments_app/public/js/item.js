@@ -3,7 +3,7 @@ frappe.ui.form.on('Item', {
         frm.set_query('custom_dyed_fabric', function() {
             return {
                 filters: [
-                    ['item_group', '=', 'Fabric']
+                    ['item_group', '=', 'Dyed Fabric']
                 ]
             };
         });
