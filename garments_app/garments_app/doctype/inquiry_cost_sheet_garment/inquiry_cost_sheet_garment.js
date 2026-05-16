@@ -95,7 +95,9 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
                     }
                 })
             })
-    }, other_expenses_section(frm) {
+    }, 
+   
+    other_expenses_section(frm) {
         frm.trigger("set_total");
     }, other_expenses(frm) {
         frm.trigger("set_total");
@@ -326,22 +328,41 @@ frappe.ui.form.on('Fabric Calculations', {
 });
 
 frappe.ui.form.on('Job Costing Fabric', {
-    refresh(frm) {
-    }, component: function (frm, cdt, cdn) {
+    
+    component: function (frm, cdt, cdn) {
         calculate_ratio(frm, cdt, cdn);
         calculate_amount(frm, cdt, cdn);
         calculate_fabric_total(frm);
-    }, ratio: function (frm, cdt, cdn) {
+    }, 
+    ratio: function (frm, cdt, cdn) {
         calculate_ratio(frm, cdt, cdn);
         calculate_amount(frm, cdt, cdn);
         calculate_fabric_total(frm);
-    }, rate: function (frm, cdt, cdn) {
+    }, 
+    rate: function (frm, cdt, cdn) {
         calculate_amount(frm, cdt, cdn);
         calculate_fabric_total(frm);
-    }, rate_lbs: function (frm, cdt, cdn) {
+    }, 
+    rate_lbs: function (frm, cdt, cdn) {
         var d = locals[cdt][cdn];
         var rate = (d.rate_lbs || 0) * 2.2046;
         frappe.model.set_value(cdt, cdn, "rate", rate);
+    },
+    item_code: function(frm, cdt, cdn) {
+        let dest_row = locals[cdt][cdn];
+        
+        if (!dest_row.item_code) return;
+        
+        let parent_doc = frm.doc;
+        let fabric_calculations = parent_doc.fabric_calculations || [];
+        
+        let matched_row = fabric_calculations.find(row => row.item_code === dest_row.item_code);
+        
+        if (matched_row) {
+            frappe.model.set_value(cdt, cdn, 'qty', matched_row.total_body_gross);
+        } else {
+            frappe.model.set_value(cdt, cdn, 'qty', 0);
+        }
     }
 });
 frappe.ui.form.on('Job Costing Accessory', {
