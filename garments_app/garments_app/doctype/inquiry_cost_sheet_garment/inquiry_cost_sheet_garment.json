@@ -532,6 +532,7 @@
    "label": "Buyer Address"
   },
   {
+   "fetch_from": "buyer_name.custom_city",
    "fieldname": "city",
    "fieldtype": "Data",
    "label": "City"
@@ -755,7 +756,7 @@
    "link_fieldname": "custom_inquiry_cost_sheet_garment"
   }
  ],
- "modified": "2026-05-18 20:55:36.266113",
+ "modified": "2026-05-18 21:38:19.302971",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
