@@ -13,7 +13,7 @@ def create_fabric_bom(docname):
     # Step 1: Build dictionary — item_code as key, collect all yarn rows
     items_map = {}
     for row in doc.job_costing_fabric:
-        key = row.item_code  # finish item
+        key = row.item_code
         if key not in items_map:
             items_map[key] = {"raw_materials": []}
         items_map[key]["raw_materials"].append({
@@ -34,27 +34,23 @@ def create_fabric_bom(docname):
         # Step 3: Calculate finish_qty
         finish_qty = total_qty - (total_qty * wastage_pct / 100)
 
-        # Step 4: Check existing BOMs and determine next version
+        # Step 4: Fetch existing BOMs (no 'version' field — not in ERPNext 15)
         existing_boms = frappe.get_all(
             "BOM",
-            filters={"item": item_code},
-            fields=["name", "version"],
-            order_by="version desc"
+            filters={"item": item_code, "docstatus": ["!=", 2]},
+            fields=["name", "is_active"],
+            order_by="creation desc"
         )
 
-        next_version = 1
         is_versioned = False
 
         if existing_boms:
-            # Deactivate all previous active BOMs
+            # Deactivate all previous BOMs for this item
             for bom in existing_boms:
                 frappe.db.set_value("BOM", bom["name"], {
                     "is_active": 0,
                     "is_default": 0
                 })
-
-            latest_version = flt(existing_boms[0].get("version") or 1)
-            next_version = int(latest_version) + 1
             is_versioned = True
 
         # Step 5: Build BOM items
@@ -65,7 +61,7 @@ def create_fabric_bom(docname):
                 "qty": rm["qty"]
             })
 
-        # Step 6: Create and submit new BOM version
+        # Step 6: Create and submit new BOM
         bom = frappe.get_doc({
             "doctype": "BOM",
             "item": item_code,
@@ -73,26 +69,25 @@ def create_fabric_bom(docname):
             "items": bom_items,
             "is_active": 1,
             "is_default": 1,
-            "version": next_version,
             "custom_inquiry_cost_sheet_garment": docname
         })
         bom.insert(ignore_permissions=True)
         bom.submit()
 
         if is_versioned:
-            versioned.append(f"{item_code} (v{next_version})")
+            versioned.append(f"{item_code} → {frappe.bold(bom.name)}")
         else:
-            created.append(item_code)
+            created.append(f"{item_code} → {frappe.bold(bom.name)}")
 
     # Step 7: Summary message
     msg_parts = []
     if created:
         msg_parts.append(
-            _("BOMs created successfully for: <b>{0}</b>").format(", ".join(created))
+            _("BOMs created successfully for:<br>{0}").format("<br>".join(created))
         )
     if versioned:
         msg_parts.append(
-            _("New BOM version created for: <b>{0}</b>").format(", ".join(versioned))
+            _("Previous BOMs deactivated, new BOM created for:<br>{0}").format("<br>".join(versioned))
         )
 
-    frappe.msgprint("<br>".join(msg_parts), title=_("BOM Creation Summary"))
+    frappe.msgprint("<br><br>".join(msg_parts), title=_("BOM Creation Summary"))
