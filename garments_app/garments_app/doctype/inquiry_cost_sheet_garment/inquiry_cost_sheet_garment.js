@@ -32,14 +32,23 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
         }),
        
         
+        // frm.set_query('item_code', 'accessories', function(doc, cdt, cdn) {
+        // return {
+        //     query: 'garments_app.events.get_items_by_group.get_items_by_group',
+        //     filters: {
+        //             parent_group: 'Trims'
+        //         }
+        //     };
+        // });
         frm.set_query('item_code', 'accessories', function(doc, cdt, cdn) {
-        return {
-            query: 'garments_app.events.get_items_by_group.get_items_by_group',
-            filters: {
-                    parent_group: 'Trims'
+            var d = locals[cdt][cdn];
+            return {
+                filters: {
+                    item_group: d.item_group
                 }
             };
         });
+
 
         frm.set_query('item_code', 'fabric_calculations', function (doc, cdt, cdn) {
             var d = locals[cdt][cdn];
@@ -47,6 +56,7 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
                 filters: [["Item", "item_group", "=", "Fabric"]]
             };
         }), 
+
         frm.set_query('item_code', 'job_costing_fabric', function (doc, cdt, cdn) {
             var d = locals[cdt][cdn];
             return {
