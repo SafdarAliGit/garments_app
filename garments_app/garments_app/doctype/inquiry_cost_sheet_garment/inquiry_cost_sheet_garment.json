@@ -6,7 +6,6 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "inquiry_id",
   "buyer_name",
   "inquiry_date",
   "column_break_4",
@@ -511,13 +510,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "inquiry_id",
-   "fieldtype": "Data",
-   "label": "Inquiry Id",
-   "set_only_once": 1,
-   "unique": 1
-  },
-  {
    "default": "Today",
    "fieldname": "inquiry_date",
    "fieldtype": "Date",
@@ -763,7 +755,7 @@
    "link_fieldname": "custom_inquiry_cost_sheet_garment"
   }
  ],
- "modified": "2026-05-15 22:22:03.656319",
+ "modified": "2026-05-18 20:55:36.266113",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",

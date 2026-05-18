@@ -22,7 +22,8 @@
   "sheet_width",
   "drop",
   "part",
-  "color"
+  "color",
+  "dyed_fabric"
  ],
  "fields": [
   {
@@ -130,7 +131,7 @@
   {
    "fieldname": "item_code",
    "fieldtype": "Link",
-   "label": "Item Code",
+   "label": "Fabric Item",
    "options": "Item"
   },
   {
@@ -138,12 +139,19 @@
    "fieldtype": "Link",
    "label": "Color",
    "options": "Color"
+  },
+  {
+   "fetch_from": "item_code.custom_dyed_fabric",
+   "fieldname": "dyed_fabric",
+   "fieldtype": "Link",
+   "label": "Dyed Fabric",
+   "options": "Item"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-05-06 16:36:08.976616",
+ "modified": "2026-05-18 20:54:35.685015",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Fabric Calculations",
