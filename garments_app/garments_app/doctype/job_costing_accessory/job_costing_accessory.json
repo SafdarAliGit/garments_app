@@ -11,7 +11,8 @@
   "qty",
   "rate",
   "amount",
-  "size_sensitive"
+  "size_sensitive",
+  "item_group"
  ],
  "fields": [
   {
@@ -73,12 +74,19 @@
    "fieldname": "size_sensitive",
    "fieldtype": "Check",
    "label": "Size Sensitive"
+  },
+  {
+   "fetch_from": "item_code.item_group",
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "label": "Item Group",
+   "options": "Item Group"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-05-02 09:00:54.790418",
+ "modified": "2026-05-18 18:26:57.829747",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Job Costing Accessory",
