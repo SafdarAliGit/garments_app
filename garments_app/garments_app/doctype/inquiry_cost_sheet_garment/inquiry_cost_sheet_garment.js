@@ -340,12 +340,12 @@ frappe.ui.form.on('Fabric Calculations', {
 frappe.ui.form.on('Job Costing Fabric', {
     
     component: function (frm, cdt, cdn) {
-        calculate_ratio(frm, cdt, cdn);
+        // calculate_ratio(frm, cdt, cdn);
         calculate_amount(frm, cdt, cdn);
         calculate_fabric_total(frm);
     }, 
     ratio: function (frm, cdt, cdn) {
-        calculate_ratio(frm, cdt, cdn);
+        // calculate_ratio(frm, cdt, cdn);
         calculate_amount(frm, cdt, cdn);
         calculate_fabric_total(frm);
     }, 
@@ -411,24 +411,24 @@ frappe.ui.form.on('Process Items', {
     }
 });
 
-function calculate_ratio(frm, cdt, cdn) {
-    var d = locals[cdt][cdn];
-    if (d && d.component == "Fabric-1" && frm.doc.total_fabric_1 > 0) {
-        var qty_fabric_1 = (d.ratio / 100) * frm.doc.total_fabric_1;
-        frappe.model.set_value(d.doctype, d.name, "qty", qty_fabric_1);
-    } else if (d && d.component == "Fabric-2" && frm.doc.total_fabric_2 > 0) {
-        var qty_fabric_2 = (d.ratio / 100) * frm.doc.total_fabric_2;
-        frappe.model.set_value(d.doctype, d.name, "qty", qty_fabric_2);
-    } else if (d && d.component == "Fabric-3" && frm.doc.total_fabric_3 > 0) {
-        var qty_fabric_3 = (d.ratio / 100) * frm.doc.total_fabric_3;
-        frappe.model.set_value(d.doctype, d.name, "qty", qty_fabric_3);
-    } else if (d && d.component == "Fabric-4" && frm.doc.total_fabric_4 > 0) {
-        var qty_fabric_4 = (d.ratio / 100) * frm.doc.total_fabric_4;
-        frappe.model.set_value(d.doctype, d.name, "qty", qty_fabric_4);
-    } else {
-        frappe.model.set_value(d.doctype, d.name, "qty", 0);
-    }
-}
+// function calculate_ratio(frm, cdt, cdn) {
+//     var d = locals[cdt][cdn];
+//     if (d && d.component == "Fabric-1" && frm.doc.total_fabric_1 > 0) {
+//         var qty_fabric_1 = (d.ratio / 100) * frm.doc.total_fabric_1;
+//         frappe.model.set_value(d.doctype, d.name, "qty", qty_fabric_1);
+//     } else if (d && d.component == "Fabric-2" && frm.doc.total_fabric_2 > 0) {
+//         var qty_fabric_2 = (d.ratio / 100) * frm.doc.total_fabric_2;
+//         frappe.model.set_value(d.doctype, d.name, "qty", qty_fabric_2);
+//     } else if (d && d.component == "Fabric-3" && frm.doc.total_fabric_3 > 0) {
+//         var qty_fabric_3 = (d.ratio / 100) * frm.doc.total_fabric_3;
+//         frappe.model.set_value(d.doctype, d.name, "qty", qty_fabric_3);
+//     } else if (d && d.component == "Fabric-4" && frm.doc.total_fabric_4 > 0) {
+//         var qty_fabric_4 = (d.ratio / 100) * frm.doc.total_fabric_4;
+//         frappe.model.set_value(d.doctype, d.name, "qty", qty_fabric_4);
+//     } else {
+//         frappe.model.set_value(d.doctype, d.name, "qty", 0);
+//     }
+// }
 
 function calculate_amount(frm, cdt, cdn) {
     var d = locals[cdt][cdn];
