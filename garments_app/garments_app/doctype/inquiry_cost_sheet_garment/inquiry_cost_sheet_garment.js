@@ -388,6 +388,13 @@ frappe.ui.form.on('Job Costing Accessory', {
         calculate_amount(frm, cdt, cdn);
         calculate_accessories_total(frm);
         total_fabric_cost(frm);
+    },
+    pcs_per_ctn: function(frm, cdt, cdn) {
+    var d = locals[cdt][cdn];
+    let pcs_per_ctn = d.pcs_per_ctn || 0;
+    if (pcs_per_ctn > 0) {
+        frappe.model.set_value(cdt, cdn, 'qty', flt(1 / pcs_per_ctn));
+    }
     }
 });
 frappe.ui.form.on('Process Items', {

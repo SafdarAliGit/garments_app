@@ -12,7 +12,8 @@
   "rate",
   "amount",
   "size_sensitive",
-  "item_group"
+  "item_group",
+  "pcs_per_ctn"
  ],
  "fields": [
   {
@@ -49,6 +50,7 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Qty",
+   "read_only_depends_on": "eval:doc.item_group=='CARTON'",
    "reqd": 1
   },
   {
@@ -73,19 +75,29 @@
    "default": "0",
    "fieldname": "size_sensitive",
    "fieldtype": "Check",
+   "in_list_view": 1,
    "label": "Size Sensitive"
   },
   {
    "fieldname": "item_group",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Item Group",
    "options": "Item Group"
+  },
+  {
+   "depends_on": "eval:doc.item_group=='CARTON'",
+   "fieldname": "pcs_per_ctn",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "PCS Per CTN",
+   "mandatory_depends_on": "eval:doc.item_group=='CARTON'"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-05-18 20:13:50.854056",
+ "modified": "2026-05-22 14:14:14.287903",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Job Costing Accessory",
