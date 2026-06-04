@@ -394,7 +394,7 @@ frappe.ui.form.on('Job Costing Accessory', {
     let pcs_per_ctn = d.pcs_per_ctn || 0;
     let unit_per_default_uom = d.unit_per_default_uom || 0;
     if (pcs_per_ctn > 0 && unit_per_default_uom > 0) {
-        frappe.model.set_value(cdt, cdn, 'qty', parseInt(flt(pcs_per_ctn / unit_per_default_uom)));
+        frappe.model.set_value(cdt, cdn, 'qty', flt(pcs_per_ctn / unit_per_default_uom));
     }
     }
 });
