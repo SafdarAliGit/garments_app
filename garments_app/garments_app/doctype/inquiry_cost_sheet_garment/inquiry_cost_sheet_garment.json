@@ -45,6 +45,8 @@
   "trims_and_accessories_details_section",
   "accessories",
   "accessories_total",
+  "section_break_3jr6g",
+  "other_accessories",
   "knitting_and_dyeing_section",
   "knitting_charges_per_kg",
   "column_break_vt1zf",
@@ -742,6 +744,17 @@
    "fieldname": "is_active",
    "fieldtype": "Check",
    "label": "Is Active"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "other_accessories",
+   "fieldtype": "Table",
+   "label": "Other Accessories",
+   "options": "Other Job Costing Accessory"
+  },
+  {
+   "fieldname": "section_break_3jr6g",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -756,7 +769,7 @@
    "link_fieldname": "custom_inquiry_cost_sheet_garment"
   }
  ],
- "modified": "2026-05-18 21:38:19.302971",
+ "modified": "2026-06-06 16:57:00.471698",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
