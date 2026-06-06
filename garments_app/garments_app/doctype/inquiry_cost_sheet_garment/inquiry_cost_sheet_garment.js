@@ -398,14 +398,22 @@ frappe.ui.form.on('Job Costing Accessory', {
         calculate_accessories_total(frm);
         total_fabric_cost(frm);
     },
-    pcs_per_ctn: function(frm, cdt, cdn) {
-    var d = locals[cdt][cdn];
-    let pcs_per_ctn = d.pcs_per_ctn || 0;
-    let unit_per_default_uom = d.unit_per_default_uom || 0;
-    let item_group = d.item_group || "";
-    if (pcs_per_ctn > 0 && unit_per_default_uom > 0 && item_group === "CARTON") {
-        frappe.model.set_value(cdt, cdn, 'qty', flt(unit_per_default_uom/pcs_per_ctn));
-    }
+   pcs_per_ctn: function(frm, cdt, cdn) {
+        var d = locals[cdt][cdn];
+        var pcs_per_ctn = flt(d.pcs_per_ctn);
+        var unit_per_default_uom = flt(d.unit_per_default_uom);
+        var item_group = d.item_group || "";
+
+        if (pcs_per_ctn <= 0 || unit_per_default_uom <= 0) return;
+
+        var qty;
+        if (item_group === "CARTON") {
+            qty = flt(unit_per_default_uom / pcs_per_ctn);
+        } else {
+            qty = flt(pcs_per_ctn / unit_per_default_uom);
+        }
+
+        frappe.model.set_value(cdt, cdn, "qty", qty);
     }
 });
 
@@ -424,14 +432,23 @@ frappe.ui.form.on('Other Job Costing Accessory', {
         total_fabric_cost(frm);
     },
     pcs_per_ctn: function(frm, cdt, cdn) {
-    var d = locals[cdt][cdn];
-    let pcs_per_ctn = d.pcs_per_ctn || 0;
-    let unit_per_default_uom = d.unit_per_default_uom || 0;
-    let item_group = d.item_group || "";
-    if (pcs_per_ctn > 0 && unit_per_default_uom > 0 && item_group === "CARTON") {
-        frappe.model.set_value(cdt, cdn, 'qty', flt(unit_per_default_uom/pcs_per_ctn));
+        var d = locals[cdt][cdn];
+        var pcs_per_ctn = flt(d.pcs_per_ctn);
+        var unit_per_default_uom = flt(d.unit_per_default_uom);
+        var item_group = d.item_group || "";
+
+        if (pcs_per_ctn <= 0 || unit_per_default_uom <= 0) return;
+
+        var qty;
+        if (item_group === "CARTON") {
+            qty = flt(unit_per_default_uom / pcs_per_ctn);
+        } else {
+            qty = flt(pcs_per_ctn / unit_per_default_uom);
+        }
+
+        frappe.model.set_value(cdt, cdn, "qty", qty);
     }
-    }
+
 });
 
 frappe.ui.form.on('Process Items', {
