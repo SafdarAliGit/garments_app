@@ -759,6 +759,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "other_accessories_total",
    "fieldtype": "Currency",
    "label": "Other Accessories Total"
@@ -767,6 +768,7 @@
    "default": "0",
    "fieldname": "other_trims_and_accessories_cost",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "Other Trims and Accessories Cost",
    "read_only": 1
   }
@@ -783,7 +785,7 @@
    "link_fieldname": "custom_inquiry_cost_sheet_garment"
   }
  ],
- "modified": "2026-06-06 17:45:03.402442",
+ "modified": "2026-06-06 19:20:26.042654",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
