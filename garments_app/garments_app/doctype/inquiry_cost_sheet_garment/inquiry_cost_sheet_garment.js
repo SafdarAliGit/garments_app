@@ -395,7 +395,7 @@ frappe.ui.form.on('Job Costing Accessory', {
     let unit_per_default_uom = d.unit_per_default_uom || 0;
     let item_group = d.item_group || "";
     if (pcs_per_ctn > 0 && unit_per_default_uom > 0 && item_group === "CARTON") {
-        frappe.model.set_value(cdt, cdn, 'qty', flt(pcs_per_ctn / unit_per_default_uom));
+        frappe.model.set_value(cdt, cdn, 'qty', flt(unit_per_default_uom/pcs_per_ctn));
     }
     }
 });

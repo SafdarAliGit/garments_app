@@ -53,7 +53,6 @@
    "in_list_view": 1,
    "label": "Qty",
    "precision": "2",
-   "read_only_depends_on": "eval:doc.item_group=='CARTON'",
    "reqd": 1
   },
   {
@@ -112,7 +111,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-06-06 16:40:34.906808",
+ "modified": "2026-06-06 16:52:05.833017",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Job Costing Accessory",
