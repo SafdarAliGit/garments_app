@@ -47,6 +47,7 @@
   "accessories_total",
   "section_break_3jr6g",
   "other_accessories",
+  "other_accessories_total",
   "knitting_and_dyeing_section",
   "knitting_charges_per_kg",
   "column_break_vt1zf",
@@ -81,6 +82,7 @@
   "total_fabric_cost",
   "cm_cost",
   "trims_and_accessories_cost",
+  "other_trims_and_accessories_cost",
   "net_making_cost",
   "column_break_38",
   "wastage",
@@ -755,6 +757,18 @@
   {
    "fieldname": "section_break_3jr6g",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "other_accessories_total",
+   "fieldtype": "Currency",
+   "label": "Other Accessories Total"
+  },
+  {
+   "default": "0",
+   "fieldname": "other_trims_and_accessories_cost",
+   "fieldtype": "Currency",
+   "label": "Other Trims and Accessories Cost",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -769,7 +783,7 @@
    "link_fieldname": "custom_inquiry_cost_sheet_garment"
   }
  ],
- "modified": "2026-06-06 16:57:00.471698",
+ "modified": "2026-06-06 17:45:03.402442",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",

@@ -399,6 +399,32 @@ frappe.ui.form.on('Job Costing Accessory', {
     }
     }
 });
+
+frappe.ui.form.on('Other Job Costing Accessory', {
+    refresh(frm) {
+
+
+    }, qty: function (frm, cdt, cdn) {
+        calculate_other_amount(frm, cdt, cdn);
+        calculate_other_accessories_total(frm);
+        total_fabric_cost(frm);
+
+    }, rate: function (frm, cdt, cdn) {
+        calculate_other_amount(frm, cdt, cdn);
+        calculate_other_accessories_total(frm);
+        total_fabric_cost(frm);
+    },
+    pcs_per_ctn: function(frm, cdt, cdn) {
+    var d = locals[cdt][cdn];
+    let pcs_per_ctn = d.pcs_per_ctn || 0;
+    let unit_per_default_uom = d.unit_per_default_uom || 0;
+    let item_group = d.item_group || "";
+    if (pcs_per_ctn > 0 && unit_per_default_uom > 0 && item_group === "CARTON") {
+        frappe.model.set_value(cdt, cdn, 'qty', flt(unit_per_default_uom/pcs_per_ctn));
+    }
+    }
+});
+
 frappe.ui.form.on('Process Items', {
     refresh(frm) {
 
@@ -433,6 +459,15 @@ frappe.ui.form.on('Process Items', {
 // }
 
 function calculate_amount(frm, cdt, cdn) {
+    var d = locals[cdt][cdn];
+    if (d && d.qty > 0 && d.rate > 0) {
+        frappe.model.set_value(d.doctype, d.name, "amount", d.qty * d.rate);
+    } else {
+        frappe.model.set_value(d.doctype, d.name, "amount", 0);
+    }
+}
+
+function calculate_other_amount(frm, cdt, cdn) {
     var d = locals[cdt][cdn];
     if (d && d.qty > 0 && d.rate > 0) {
         frappe.model.set_value(d.doctype, d.name, "amount", d.qty * d.rate);
@@ -598,6 +633,18 @@ function calculate_accessories_total(frm) {
     frm.refresh_field("trims_and_accessories_cost");
 }
 
+function calculate_other_accessories_total(frm) {
+    var accessories = frm.doc.other_accessories;
+    frm.doc.other_accessories_total = 0;
+    frm.doc.other_trims_and_accessories_cost = 0;
+    for (var i in accessories) {
+        frm.doc.other_accessories_total += accessories[i].amount
+    }
+    frm.doc.other_trims_and_accessories_cost = frm.doc.other_accessories_total;
+    frm.refresh_field("other_accessories_total");
+    frm.refresh_field("other_trims_and_accessories_cost");
+}
+
 function calculate_process_amount_total(frm) {
     var process_items = frm.doc.process_items;
     frm.doc.total_process_amount = 0;
@@ -626,7 +673,7 @@ function gross_weight(frm) {
     var net_making_cost = 0;
     total_fabric_cost = (flt(frm.doc.knitting_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.dyeing_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.printing_charges_per_kg) * flt(frm.doc.gross_weight)) + flt(frm.doc.fabric_cost);
     frm.set_value("total_fabric_cost", total_fabric_cost);
-    net_making_cost = total_fabric_cost + frm.doc.cm_cost + frm.doc.trims_and_accessories_cost;
+    net_making_cost = total_fabric_cost + frm.doc.cm_cost + frm.doc.trims_and_accessories_cost  + frm.doc.other_trims_and_accessories_cost;
     frm.set_value("net_making_cost", net_making_cost);
 }
 
@@ -635,9 +682,10 @@ function total_fabric_cost(frm) {
     var net_making_cost = 0;
     total_fabric_cost = (flt(frm.doc.knitting_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.dyeing_charges_per_kg) * flt(frm.doc.gross_weight)) + (flt(frm.doc.printing_charges_per_kg) * flt(frm.doc.gross_weight)) + flt(frm.doc.fabric_cost);
     frm.set_value("total_fabric_cost", total_fabric_cost);
-    net_making_cost = total_fabric_cost + frm.doc.cm_cost + frm.doc.trims_and_accessories_cost;
+    net_making_cost = total_fabric_cost + frm.doc.cm_cost + frm.doc.trims_and_accessories_cost + frm.doc.other_trims_and_accessories_cost;
     frm.set_value("net_making_cost", net_making_cost);
 }
+
 
 function create_fabric_bom(frm) {
     frappe.call({
