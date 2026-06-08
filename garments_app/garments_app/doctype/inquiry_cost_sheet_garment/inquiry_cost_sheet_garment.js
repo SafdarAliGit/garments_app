@@ -424,12 +424,12 @@ frappe.ui.form.on('Other Job Costing Accessory', {
     }, qty: function (frm, cdt, cdn) {
         calculate_other_amount(frm, cdt, cdn);
         calculate_other_accessories_total(frm);
-        total_fabric_cost(frm);
+        // total_fabric_cost(frm);
 
     }, rate: function (frm, cdt, cdn) {
         calculate_other_amount(frm, cdt, cdn);
         calculate_other_accessories_total(frm);
-        total_fabric_cost(frm);
+        // total_fabric_cost(frm);
     },
     pcs_per_ctn: function(frm, cdt, cdn) {
         var d = locals[cdt][cdn];
