@@ -354,6 +354,7 @@ frappe.ui.form.on('Job Costing Fabric', {
         calculate_fabric_total(frm);
     }, 
     ratio: function (frm, cdt, cdn) {
+        calculate_fabric_qty(frm, cdt, cdn);
         // calculate_ratio(frm, cdt, cdn);
         calculate_amount(frm, cdt, cdn);
         calculate_fabric_total(frm);
@@ -384,6 +385,16 @@ frappe.ui.form.on('Job Costing Fabric', {
         }
     }
 });
+
+function calculate_fabric_qty(frm, cdt, cdn) {
+    var d = locals[cdt][cdn];
+    if (d && d.qty > 0 && d.ratio > 0) {
+        frappe.model.set_value(d.doctype, d.name, "yarn_qty", d.ratio / d.qty);
+    } else {
+        frappe.model.set_value(d.doctype, d.name, "yarn_qty", 0);
+    }
+}
+
 frappe.ui.form.on('Job Costing Accessory', {
     refresh(frm) {
 

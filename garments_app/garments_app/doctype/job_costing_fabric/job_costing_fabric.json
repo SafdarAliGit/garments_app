@@ -16,7 +16,8 @@
   "rate_lbs",
   "pcs",
   "fabric_kg",
-  "bags"
+  "bags",
+  "yarn_qty"
  ],
  "fields": [
   {
@@ -112,12 +113,21 @@
    "label": "Yarn Item",
    "options": "Item",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "yarn_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Yarn Qty",
+   "precision": "3",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-05-18 20:52:24.217135",
+ "modified": "2026-06-10 17:24:25.990895",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Job Costing Fabric",
