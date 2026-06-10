@@ -389,7 +389,7 @@ frappe.ui.form.on('Job Costing Fabric', {
 function calculate_fabric_qty(frm, cdt, cdn) {
     var d = locals[cdt][cdn];
     if (d && d.qty > 0 && d.ratio > 0) {
-        frappe.model.set_value(d.doctype, d.name, "yarn_qty", d.ratio / d.qty);
+        frappe.model.set_value(d.doctype, d.name, "yarn_qty", (d.ratio/100) * d.qty);
     } else {
         frappe.model.set_value(d.doctype, d.name, "yarn_qty", 0);
     }
