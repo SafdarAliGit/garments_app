@@ -120,14 +120,14 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Yarn Qty",
-   "precision": "3",
+   "precision": "4",
    "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-06-10 17:24:25.990895",
+ "modified": "2026-06-10 20:07:04.954801",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Job Costing Fabric",
