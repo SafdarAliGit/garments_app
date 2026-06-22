@@ -354,7 +354,8 @@ frappe.ui.form.on('Job Costing Fabric', {
         calculate_fabric_total(frm);
     }, 
     ratio: function (frm, cdt, cdn) {
-        calculate_fabric_qty(frm, cdt, cdn);
+        calculate_qty_from_part_ratio(frm, cdt, cdn);
+        // calculate_fabric_qty(frm, cdt, cdn);
         // calculate_ratio(frm, cdt, cdn);
         calculate_amount(frm, cdt, cdn);
         calculate_fabric_total(frm);
@@ -372,10 +373,6 @@ frappe.ui.form.on('Job Costing Fabric', {
     calculate_qty_from_part_ratio(frm, cdt, cdn);
     },
 
-    ratio: function(frm, cdt, cdn) {
-        calculate_qty_from_part_ratio(frm, cdt, cdn);
-    },
-    
     item_code: function(frm, cdt, cdn) {
         calculate_qty_from_part_ratio(frm, cdt, cdn);
     }
@@ -399,10 +396,12 @@ function calculate_qty_from_part_ratio(frm, cdt, cdn) {
     });
 
     if (sum_of_total_body_gross > 0) {
-        let qty = sum_of_total_body_gross * (flt(dest_row.ratio) / 100);
-        frappe.model.set_value(cdt, cdn, 'qty', qty);
+        frappe.model.set_value(cdt, cdn, 'qty', sum_of_total_body_gross);
+        let yarn_qty = sum_of_total_body_gross * (flt(dest_row.ratio) / 100);
+        frappe.model.set_value(cdt, cdn, 'yarn_qty', yarn_qty);
     } else {
         frappe.model.set_value(cdt, cdn, 'qty', 0);
+        frappe.model.set_value(cdt, cdn, 'yarn_qty', 0);
     }
 }
 
