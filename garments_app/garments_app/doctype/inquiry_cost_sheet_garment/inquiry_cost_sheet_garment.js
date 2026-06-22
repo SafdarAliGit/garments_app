@@ -368,23 +368,43 @@ frappe.ui.form.on('Job Costing Fabric', {
         var rate = (d.rate_lbs || 0) * 2.2046;
         frappe.model.set_value(cdt, cdn, "rate", rate);
     },
+    part: function(frm, cdt, cdn) {
+    calculate_qty_from_part_ratio(frm, cdt, cdn);
+    },
+
+    ratio: function(frm, cdt, cdn) {
+        calculate_qty_from_part_ratio(frm, cdt, cdn);
+    },
+    
     item_code: function(frm, cdt, cdn) {
-        let dest_row = locals[cdt][cdn];
-        
-        if (!dest_row.item_code) return;
-        
-        let parent_doc = frm.doc;
-        let fabric_calculations = parent_doc.fabric_calculations || [];
-        
-        let matched_row = fabric_calculations.find(row => row.item_code === dest_row.item_code);
-        
-        if (matched_row) {
-            frappe.model.set_value(cdt, cdn, 'qty', matched_row.total_body_gross);
-        } else {
-            frappe.model.set_value(cdt, cdn, 'qty', 0);
-        }
+        calculate_qty_from_part_ratio(frm, cdt, cdn);
     }
 });
+
+function calculate_qty_from_part_ratio(frm, cdt, cdn) {
+    let dest_row = locals[cdt][cdn];
+
+    // Only proceed if all three values exist
+    if (!dest_row.item_code || !dest_row.part || !dest_row.ratio) return;
+
+    let parent_doc = frm.doc;
+    let fabric_calculations = parent_doc.fabric_calculations || [];
+
+    let sum_of_total_body_gross = 0;
+
+    fabric_calculations.forEach(row => {
+        if (row.item_code === dest_row.item_code && row.part === dest_row.part) {
+            sum_of_total_body_gross += flt(row.total_body_gross);
+        }
+    });
+
+    if (sum_of_total_body_gross > 0) {
+        let qty = sum_of_total_body_gross * (flt(dest_row.ratio) / 100);
+        frappe.model.set_value(cdt, cdn, 'qty', qty);
+    } else {
+        frappe.model.set_value(cdt, cdn, 'qty', 0);
+    }
+}
 
 function calculate_fabric_qty(frm, cdt, cdn) {
     var d = locals[cdt][cdn];
