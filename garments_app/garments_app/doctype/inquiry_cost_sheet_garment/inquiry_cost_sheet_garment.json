@@ -783,9 +783,14 @@
   {
    "link_doctype": "BOM",
    "link_fieldname": "custom_inquiry_cost_sheet_garment"
+  },
+  {
+   "custom": 1,
+   "link_doctype": "Material Request",
+   "link_fieldname": "custom_inquiry_cost_sheet_garment"
   }
  ],
- "modified": "2026-06-06 19:20:26.042654",
+ "modified": "2026-06-27 18:56:01.589078",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
