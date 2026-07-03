@@ -123,10 +123,10 @@
   },
   {
    "fieldname": "part",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Part",
-   "options": "\nShirt\nT-Shirt\nJacket\nHoodie\nBarmuda\nKids\nTrouser\nJeans"
+   "options": "Part"
   },
   {
    "fieldname": "item_code",
@@ -151,7 +151,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-05-18 20:54:35.685015",
+ "modified": "2026-07-03 16:15:49.864600",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Fabric Calculations",
