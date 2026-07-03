@@ -126,16 +126,16 @@
   },
   {
    "fieldname": "part",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Part",
-   "options": "\nShirt\nT-Shirt\nJacket\nHoodie\nBarmuda\nKids\nTrouser\nJeans"
+   "options": "Part"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-06-22 19:15:49.126030",
+ "modified": "2026-07-03 15:34:36.968067",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Job Costing Fabric",
