@@ -390,7 +390,7 @@ function calculate_qty_from_part_ratio(frm, cdt, cdn) {
     let sum_of_total_body_gross = 0;
 
     fabric_calculations.forEach(row => {
-        if (row.item_code === dest_row.item_code && row.part === dest_row.part) {
+        if (row.item_code === dest_row.item_code && row.part === dest_row.part && row.color === dest_row.color) {
             sum_of_total_body_gross += flt(row.total_body_gross);
         }
     });
