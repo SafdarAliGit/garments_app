@@ -403,7 +403,10 @@ function calculate_qty_from_part_ratio(frm, cdt, cdn) {
         frappe.model.set_value(cdt, cdn, 'qty', 0);
         frappe.model.set_value(cdt, cdn, 'yarn_qty', 0);
     }
+    
 }
+
+
 
 function calculate_fabric_qty(frm, cdt, cdn) {
     var d = locals[cdt][cdn];
@@ -428,6 +431,10 @@ frappe.ui.form.on('Job Costing Accessory', {
         calculate_accessories_total(frm);
         total_fabric_cost(frm);
     },
+    item_code: function(frm, cdt, cdn) {
+        fetch_item_rate(cdt, cdn);
+        },
+
    pcs_per_ctn: function(frm, cdt, cdn) {
         var d = locals[cdt][cdn];
         var pcs_per_ctn = flt(d.pcs_per_ctn);
@@ -446,6 +453,23 @@ frappe.ui.form.on('Job Costing Accessory', {
         frappe.model.set_value(cdt, cdn, "qty", qty);
     }
 });
+
+function fetch_item_rate(cdt, cdn) {
+    let row = locals[cdt][cdn];
+
+    if (!row.item_code) {
+        frappe.model.set_value(cdt, cdn, 'rate', 0);
+        return;
+    }
+
+    frappe.db.get_value('Item Price',
+        { item_code: row.item_code, buying: 1 },
+        'price_list_rate'
+    ).then(r => {
+        let rate = (r.message && r.message.price_list_rate) ? r.message.price_list_rate : 0;
+        frappe.model.set_value(cdt, cdn, 'rate', flt(rate));
+    });
+}
 
 frappe.ui.form.on('Other Job Costing Accessory', {
     refresh(frm) {
