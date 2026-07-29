@@ -15,7 +15,9 @@
   "item_group",
   "pcs_per_ctn",
   "unit_per_default_uom",
-  "excess_percentage"
+  "excess_percentage",
+  "select_size",
+  "sizes"
  ],
  "fields": [
   {
@@ -100,6 +102,7 @@
    "fetch_from": "item_code.custom_unit_per_default_uom",
    "fieldname": "unit_per_default_uom",
    "fieldtype": "Int",
+   "in_list_view": 1,
    "label": "Unit Per Default UOM",
    "read_only": 1
   },
@@ -107,14 +110,27 @@
    "fetch_from": "item_code.custom_excess_percentage",
    "fieldname": "excess_percentage",
    "fieldtype": "Percent",
+   "in_list_view": 1,
    "label": "Excess Percentage",
    "read_only": 1
+  },
+  {
+   "fieldname": "select_size",
+   "fieldtype": "Button",
+   "in_list_view": 1,
+   "label": "Select Size"
+  },
+  {
+   "fieldname": "sizes",
+   "fieldtype": "JSON",
+   "in_list_view": 1,
+   "label": "Sizes"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-06-22 17:02:57.060145",
+ "modified": "2026-07-29 21:16:38.252237",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Job Costing Accessory",

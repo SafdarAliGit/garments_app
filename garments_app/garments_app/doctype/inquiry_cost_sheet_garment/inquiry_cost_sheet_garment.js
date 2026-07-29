@@ -417,6 +417,9 @@ function calculate_fabric_qty(frm, cdt, cdn) {
     }
 }
 
+const ACCESSORIES_FIELD = "accessories";
+
+
 frappe.ui.form.on('Job Costing Accessory', {
     refresh(frm) {
 
@@ -451,6 +454,9 @@ frappe.ui.form.on('Job Costing Accessory', {
         }
 
         frappe.model.set_value(cdt, cdn, "qty", qty);
+    },
+    select_size: function(frm, cdt, cdn) {
+        open_size_picker(frm, cdt, cdn);
     }
 });
 
@@ -807,3 +813,280 @@ function create_fabric_bom(frm) {
 }
 
 
+
+// Client Script
+// DocType: New Inquiry Cost Sheet Garment   |   Apply To: Form
+// Child table: Job Costing Accessory (fieldname: accessories)
+// Requires in child doctype: `select_size` (Button), `sizes` (JSON)
+
+
+
+function open_size_picker(frm, cdt, cdn) {
+    frappe.db
+        .get_list("Size", {
+            fields: ["name", "size"],
+            order_by: "size asc",
+            limit: 0,
+        })
+        .then((records) => {
+            // read the row fresh, every time the dialog opens
+            const row = locals[cdt][cdn];
+            const stored = parse_sizes(row && row.sizes);
+
+            // master options, in master order
+            const options = [];
+            const seen = new Set();
+
+            (records || []).forEach((r) => {
+                const value = String(r.size || r.name);
+                if (seen.has(value)) return;
+                seen.add(value);
+                options.push({ value: value, orphan: false });
+            });
+
+            // values already saved on the row that no longer exist in Size —
+            // keep them visible so re-saving never silently drops data
+            stored.forEach((value) => {
+                if (seen.has(value)) return;
+                seen.add(value);
+                options.push({ value: value, orphan: true });
+            });
+
+            if (!options.length) {
+                frappe.msgprint(__("No records found in the Size doctype."));
+                return;
+            }
+
+            const selected = new Set(stored.filter((v) => seen.has(v)));
+
+            const dialog = new frappe.ui.Dialog({
+                title: __("Select Sizes"),
+                size: "large",
+                fields: [{ fieldtype: "HTML", fieldname: "picker" }],
+                primary_action_label: __("Select"),
+                primary_action() {
+                    // rebuild from scratch in master order — additions and
+                    // removals both land correctly on every re-open
+                    const values = options
+                        .filter((o) => selected.has(o.value))
+                        .map((o) => o.value);
+
+                    set_sizes(frm, cdt, cdn, values);
+                    dialog.hide();
+                },
+                secondary_action_label: __("Clear sizes"),
+                secondary_action() {
+                    set_sizes(frm, cdt, cdn, []);
+                    dialog.hide();
+                },
+            });
+
+            const $wrap = $(dialog.fields_dict.picker.$wrapper);
+            $wrap.html(build_picker_html(options, selected));
+
+            const $cards = $wrap.find(".size-card");
+            const $count = $wrap.find(".size-count");
+
+            const update_count = () => {
+                $count.text(__("{0} of {1} selected", [selected.size, options.length]));
+            };
+            update_count();
+
+            $wrap.on("click", ".size-card", function () {
+                const val = String($(this).data("value"));
+                if (selected.has(val)) {
+                    selected.delete(val);
+                    $(this).removeClass("selected");
+                } else {
+                    selected.add(val);
+                    $(this).addClass("selected");
+                }
+                update_count();
+            });
+
+            $wrap.on("keydown", ".size-card", function (e) {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    $(this).trigger("click");
+                }
+            });
+
+            $wrap.on("input", ".size-search", function () {
+                const q = String($(this).val() || "").toLowerCase();
+                $cards.each(function () {
+                    const label = String($(this).data("value")).toLowerCase();
+                    $(this).toggle(label.indexOf(q) !== -1);
+                });
+            });
+
+            $wrap.on("click", ".size-select-all", function () {
+                $cards.filter(":visible").each(function () {
+                    selected.add(String($(this).data("value")));
+                    $(this).addClass("selected");
+                });
+                update_count();
+            });
+
+            $wrap.on("click", ".size-clear", function () {
+                $cards.filter(":visible").each(function () {
+                    selected.delete(String($(this).data("value")));
+                    $(this).removeClass("selected");
+                });
+                update_count();
+            });
+
+            dialog.show();
+        });
+}
+
+// Single write path — always stores a clean JSON array string,
+// then forces the JSON control on the row to redraw.
+function set_sizes(frm, cdt, cdn, values) {
+    const payload = JSON.stringify(values || []);
+
+    return frappe.model
+        .set_value(cdt, cdn, "sizes", payload)
+        .then(() => {
+            // set_value skips the update when the string is identical,
+            // so write straight to locals as a fallback
+            const row = locals[cdt][cdn];
+            if (row && row.sizes !== payload) {
+                row.sizes = payload;
+                frm.dirty();
+            }
+            refresh_row_field(frm, cdn, "sizes");
+        });
+}
+
+// Redraws the field inside the grid row and inside the expanded row form,
+// so the new value is visible without collapsing/reopening the row.
+function refresh_row_field(frm, cdn, fieldname) {
+    frm.refresh_field(ACCESSORIES_FIELD);
+
+    const grid = frm.fields_dict[ACCESSORIES_FIELD] && frm.fields_dict[ACCESSORIES_FIELD].grid;
+    if (!grid || !grid.grid_rows_by_docname) return;
+
+    const grid_row = grid.grid_rows_by_docname[cdn];
+    if (!grid_row) return;
+
+    // in-grid column control
+    if (typeof grid_row.refresh_field === "function") {
+        grid_row.refresh_field(fieldname);
+    }
+
+    // expanded row form control
+    const form_control =
+        grid_row.grid_form &&
+        grid_row.grid_form.fields_dict &&
+        grid_row.grid_form.fields_dict[fieldname];
+
+    if (form_control) {
+        form_control.value = grid_row.doc[fieldname];
+        form_control.refresh();
+    }
+}
+
+function build_picker_html(options, selected) {
+    const cards = options
+        .map((o) => {
+            const active = selected.has(o.value) ? " selected" : "";
+            const orphan = o.orphan ? " orphan" : "";
+            const val = frappe.utils.escape_html(o.value);
+            const title = o.orphan ? __("Not found in Size master") : "";
+            return `
+                <div class="size-card${active}${orphan}" data-value="${val}"
+                     tabindex="0" role="checkbox" title="${title}">
+                    <span class="size-tick">${frappe.utils.icon("check", "xs")}</span>
+                    <span class="size-label">${val}</span>
+                </div>`;
+        })
+        .join("");
+
+    return `
+        <style>
+            .size-picker-toolbar {
+                display: flex; align-items: center; gap: 8px;
+                margin-bottom: 12px; flex-wrap: wrap;
+            }
+            .size-picker-toolbar .size-search { flex: 1; min-width: 180px; }
+            .size-count { color: var(--text-muted); font-size: var(--text-sm); }
+            .size-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+                gap: 10px;
+                max-height: 55vh;
+                overflow-y: auto;
+                padding: 4px;
+            }
+            .size-card {
+                position: relative;
+                display: flex; align-items: center; justify-content: center;
+                min-height: 58px; padding: 10px 8px;
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius-md);
+                background: var(--card-bg, var(--fg-color));
+                cursor: pointer; text-align: center; font-weight: 500;
+                transition: border-color .12s ease, box-shadow .12s ease;
+                user-select: none;
+            }
+            .size-card:hover { border-color: var(--gray-400); }
+            .size-card:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+            .size-card.selected {
+                border-color: var(--primary);
+                box-shadow: inset 0 0 0 1px var(--primary);
+                background: var(--bg-light-gray, var(--subtle-accent));
+            }
+            .size-card.orphan { border-style: dashed; }
+            .size-card .size-tick {
+                position: absolute; top: 5px; right: 6px;
+                opacity: 0; color: var(--primary);
+            }
+            .size-card.selected .size-tick { opacity: 1; }
+            .size-label { word-break: break-word; }
+        </style>
+
+        <div class="size-picker">
+            <div class="size-picker-toolbar">
+                <input type="text" class="form-control input-sm size-search"
+                       placeholder="${__("Search sizes")}">
+                <button class="btn btn-xs btn-default size-select-all">${__("Select all")}</button>
+                <button class="btn btn-xs btn-default size-clear">${__("Deselect")}</button>
+                <span class="size-count"></span>
+            </div>
+            <div class="size-grid">${cards}</div>
+        </div>`;
+}
+
+// Accepts JSON string, array, object, or comma separated text
+function parse_sizes(value) {
+    if (value === null || value === undefined || value === "") return [];
+
+    let list = [];
+
+    if (Array.isArray(value)) {
+        list = value;
+    } else if (typeof value === "object") {
+        list = Object.values(value);
+    } else {
+        try {
+            const parsed = JSON.parse(value);
+            list = Array.isArray(parsed)
+                ? parsed
+                : typeof parsed === "object" && parsed !== null
+                ? Object.values(parsed)
+                : [parsed];
+        } catch (e) {
+            list = String(value).split(",");
+        }
+    }
+
+    const out = [];
+    const seen = new Set();
+    list.forEach((v) => {
+        const s = String(v == null ? "" : v).trim();
+        if (!s || seen.has(s)) return;
+        seen.add(s);
+        out.push(s);
+    });
+    return out;
+}
