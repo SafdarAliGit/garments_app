@@ -6,6 +6,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "item_group",
   "process_name",
   "amount"
  ],
@@ -15,20 +16,28 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Process Name",
-   "options": "Process"
+   "options": "Item"
   },
   {
+   "default": "0",
    "fetch_from": "process_name.amount",
    "fieldname": "amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
    "label": "Amount"
+  },
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group",
+   "options": "Item Group"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-04 22:31:23.427284",
+ "modified": "2026-07-30 17:39:40.747273",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Process Items",
