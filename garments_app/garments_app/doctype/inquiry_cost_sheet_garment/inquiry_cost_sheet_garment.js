@@ -85,12 +85,12 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
             };
         }),
 
-        frm.set_query('process_name', 'process_items', function (doc, cdt, cdn) {  
-                var d = locals[cdt][cdn];
-                return {
-                filters: [["Item", "item_group", "=", d.item_group]]
-            };
-        });
+        // frm.set_query('process_name', 'process_items', function (doc, cdt, cdn) {  
+        //         var d = locals[cdt][cdn];
+        //         return {
+        //         filters: [["Item", "item_group", "=", d.item_group]]
+        //     };
+        // });
         
         /*frm.add_custom_button("Create PO", function(){
                 frappe.prompt([
