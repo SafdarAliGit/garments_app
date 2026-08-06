@@ -75,11 +75,10 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
 
 
         frm.set_query('item_code', 'fabric_calculations', function (doc, cdt, cdn) {
-            var d = locals[cdt][cdn];
-            return {
-                filters: [["Item", "item_group", "=", "Fabric"]]
+        return {
+                filters: [["Item", "item_group", "in", ["Fabric", "Dyed Fabric"]]]
             };
-        }), 
+        });
 
         frm.set_query('item_code', 'job_costing_fabric', function (doc, cdt, cdn) {
             var d = locals[cdt][cdn];
