@@ -544,8 +544,22 @@ frappe.ui.form.on('Process Items', {
         calculate_process_amount_total(frm);
         total_fabric_cost(frm);
 
+    },
+    process_name: function(frm, cdt, cdn) {
+        const d = locals[cdt][cdn];
+        if (!d.process_name) return;
+
+        frappe.call({
+            method: 'garments_app.events.get_avg_rate.get_avg_rate',
+            args: { item_code: d.process_name },
+            callback: function(r) {
+                frappe.model.set_value(cdt, cdn, 'rate', r.message || 0);
+            }
+        });
     }
 });
+
+
 
 // function calculate_ratio(frm, cdt, cdn) {
 //     var d = locals[cdt][cdn];
