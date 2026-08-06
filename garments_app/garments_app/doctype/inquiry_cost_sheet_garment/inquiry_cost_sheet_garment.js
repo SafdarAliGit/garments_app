@@ -48,6 +48,21 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
                 }
             };
         });
+        frm.set_query('item_group', 'process_items', function(doc, cdt, cdn) {
+            return {
+                filters: [
+                    ['Item Group', 'name', 'descendants of', 'Cut To Pack']
+                ]
+            };
+        });
+        frm.set_query('process_name', 'process_items', function(doc, cdt, cdn) {
+             var d = locals[cdt][cdn];
+                return {
+                    filters: {
+                        item_group: d.item_group
+                    }
+                };
+        });
 
          frm.set_query('item_code', 'other_accessories', function(doc, cdt, cdn) {
             var d = locals[cdt][cdn];
