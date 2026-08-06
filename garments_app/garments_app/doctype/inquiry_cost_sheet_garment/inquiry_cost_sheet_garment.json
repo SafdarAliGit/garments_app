@@ -624,6 +624,7 @@
    "label": "CMT Charges/Pcs"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "process_items",
    "fieldtype": "Table",
    "label": "Process Items",
@@ -791,7 +792,7 @@
    "link_fieldname": "custom_inquiry_cost_sheet_garment"
   }
  ],
- "modified": "2026-07-18 17:33:38.431245",
+ "modified": "2026-08-06 16:31:49.897137",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
