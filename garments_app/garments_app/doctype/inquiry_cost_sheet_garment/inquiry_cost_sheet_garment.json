@@ -556,7 +556,7 @@
    "fieldname": "article_no",
    "fieldtype": "Link",
    "label": "Article No",
-   "options": "Item"
+   "options": "Article"
   },
   {
    "fieldname": "product",
@@ -792,7 +792,7 @@
    "link_fieldname": "custom_inquiry_cost_sheet_garment"
   }
  ],
- "modified": "2026-08-06 16:31:49.897137",
+ "modified": "2026-08-10 13:56:21.225520",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",

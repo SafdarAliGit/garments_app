@@ -85,7 +85,8 @@
    "fieldname": "total_body_gross",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Total Body Gross"
+   "label": "Total Body Gross",
+   "read_only": 1
   },
   {
    "fieldname": "sleeve_width",
@@ -157,7 +158,8 @@
    "fieldname": "gross_dzn",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Gross DZN"
+   "label": "Gross DZN",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_fgkqr",
@@ -171,7 +173,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-08-10 13:49:58.752188",
+ "modified": "2026-08-10 13:54:42.962634",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Fabric Calculations",

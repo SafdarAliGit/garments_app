@@ -92,11 +92,11 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
                 filters: [["Item", "item_group", "=", "Yarn"]]
             };
         }),
-        frm.set_query('article_no', function (doc, cdt, cdn) {
-            return {
-                filters: [["Item", "item_group", "=", "Products"]]
-            };
-        }),
+        // frm.set_query('article_no', function (doc, cdt, cdn) {
+        //     return {
+        //         filters: [["Item", "item_group", "=", "Products"]]
+        //     };
+        // }),
 
         // frm.set_query('process_name', 'process_items', function (doc, cdt, cdn) {  
         //         var d = locals[cdt][cdn];
@@ -538,11 +538,8 @@ frappe.ui.form.on('Other Job Costing Accessory', {
 frappe.ui.form.on('Process Items', {
     refresh(frm) {
 
-    }, process_name: function (frm) {
-        calculate_process_amount_total(frm);
-        total_fabric_cost(frm);
-
-    }, amount: function (frm) {
+    }
+    , amount: function (frm) {
         calculate_process_amount_total(frm);
         total_fabric_cost(frm);
 
@@ -558,6 +555,9 @@ frappe.ui.form.on('Process Items', {
                 frappe.model.set_value(cdt, cdn, 'rate', r.message || 0);
             }
         });
+
+        calculate_process_amount_total(frm);
+        total_fabric_cost(frm);
     }
 });
 
