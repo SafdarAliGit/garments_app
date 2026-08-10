@@ -286,7 +286,11 @@ function set_accessories_total(frm) {
 
 
 frappe.ui.form.on('Fabric Calculations', {
-    body_gross(frm, cdt, cdn) {
+    gross_dzn(frm, cdt, cdn) {
+        let d = locals[cdt][cdn];
+        let gross_dzn = flt(d.gross_dzn, precision("gross_dzn", d)) || 0;
+        let body_gross = gross_dzn/12;
+        frappe.model.set_value(cdt, cdn, "body_gross", body_gross);
         calculate_total_body_gross(frm, cdt, cdn);
     },
  

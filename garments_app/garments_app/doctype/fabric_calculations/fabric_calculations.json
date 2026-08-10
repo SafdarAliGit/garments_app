@@ -13,17 +13,20 @@
   "chestbust",
   "body_gross",
   "sleeve_length",
+  "column_break_fgkqr",
   "sleeve_width",
   "sleeve_gross",
   "total_body_gross",
   "wastage_percentage",
   "wastage",
   "sheet_length",
+  "column_break_q4tni",
   "sheet_width",
   "drop",
   "part",
   "color",
-  "dyed_fabric"
+  "dyed_fabric",
+  "gross_dzn"
  ],
  "fields": [
   {
@@ -60,7 +63,8 @@
    "fieldname": "body_gross",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Body Gross"
+   "label": "Body Gross",
+   "read_only": 1
   },
   {
    "fieldname": "sleeve_length",
@@ -137,6 +141,7 @@
   {
    "fieldname": "color",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Color",
    "options": "Color"
   },
@@ -144,14 +149,29 @@
    "fetch_from": "item_code.custom_dyed_fabric",
    "fieldname": "dyed_fabric",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Dyed Fabric",
    "options": "Item"
+  },
+  {
+   "fieldname": "gross_dzn",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Gross DZN"
+  },
+  {
+   "fieldname": "column_break_fgkqr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_q4tni",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-07-03 16:15:49.864600",
+ "modified": "2026-08-10 13:49:58.752188",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Fabric Calculations",
