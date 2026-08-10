@@ -92,12 +92,12 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
                 filters: [["Item", "item_group", "=", "Yarn"]]
             };
         }),
-        
-        frm.set_query('article_no', function (doc, cdt, cdn) {
-            return {
-                filters: [["Item", "item_group", "=", "Products"]]
-            };
-        }),
+
+        // frm.set_query('article_no', function (doc, cdt, cdn) {
+        //     return {
+        //         filters: [["Item", "item_group", "=", "Products"]]
+        //     };
+        // }),
 
         // frm.set_query('process_name', 'process_items', function (doc, cdt, cdn) {  
         //         var d = locals[cdt][cdn];
