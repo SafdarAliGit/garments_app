@@ -127,7 +127,7 @@
    "options": "Sales Partner"
   },
   {
-   "fetch_from": "article_no.custom_style",
+   "fetch_from": "article_no.style",
    "fieldname": "style",
    "fieldtype": "Link",
    "label": "Style",
@@ -556,7 +556,7 @@
    "fieldname": "article_no",
    "fieldtype": "Link",
    "label": "Article No",
-   "options": "Article"
+   "options": "Item"
   },
   {
    "fieldname": "product",
@@ -792,7 +792,7 @@
    "link_fieldname": "custom_inquiry_cost_sheet_garment"
   }
  ],
- "modified": "2026-08-10 13:56:21.225520",
+ "modified": "2026-08-10 14:38:19.389047",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",
