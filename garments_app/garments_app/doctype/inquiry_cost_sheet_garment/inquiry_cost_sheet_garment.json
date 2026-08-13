@@ -61,6 +61,10 @@
   "column_break_i6dzg",
   "printing_charges_per_piece",
   "cmt_charges_section",
+  "sku_items",
+  "column_break_cmt_template",
+  "process_items_template",
+  "section_break_n3rrb",
   "process_items",
   "total_process_amount",
   "other_expenses_section",
@@ -628,6 +632,22 @@
    "label": "CMT Charges/Pcs"
   },
   {
+   "fieldname": "process_items_template",
+   "fieldtype": "Link",
+   "label": "Process Items Template",
+   "options": "Process Items Template"
+  },
+  {
+   "fieldname": "column_break_cmt_template",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sku_items",
+   "fieldtype": "Link",
+   "label": "SKU Items",
+   "options": "Item"
+  },
+  {
    "allow_on_submit": 1,
    "fieldname": "process_items",
    "fieldtype": "Table",
@@ -777,6 +797,10 @@
    "hidden": 1,
    "label": "Other Trims and Accessories Cost",
    "read_only": 1
+  },
+  {
+   "fieldname": "section_break_n3rrb",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -796,7 +820,7 @@
    "link_fieldname": "custom_inquiry_cost_sheet_garment"
   }
  ],
- "modified": "2026-08-13 19:56:18.987430",
+ "modified": "2026-08-13 21:29:23.448741",
  "modified_by": "Administrator",
  "module": "Garments App",
  "name": "Inquiry Cost Sheet Garment",

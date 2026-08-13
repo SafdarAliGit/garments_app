@@ -48,6 +48,16 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
                 }
             };
         });
+        frm.set_query('sku_items', function(doc) {
+            return {
+                filters: [
+                    ['Item', 'item_code', 'like', `${doc.article_no}%`],
+                    ['Item', 'disabled', '=', 0],
+                    ['Item', 'item_group', '=', 'SKU Items']
+                ]
+            };
+        });
+
         frm.set_query('item_group', 'process_items', function(doc, cdt, cdn) {
             return {
                 filters: [
@@ -135,8 +145,32 @@ frappe.ui.form.on('Inquiry Cost Sheet Garment', {
                     }
                 })
             })
-    }, 
-   
+    },
+
+    process_items_template(frm) {
+        if (!frm.doc.process_items_template) return;
+
+        if (!frm.doc.sku_items) {
+            frappe.msgprint(__('Please select {0} first', [__('SKU Item')]));
+            frm.set_value('process_items_template', '');
+            return;
+        }
+
+        frappe.db.get_doc('Process Items Template', frm.doc.process_items_template).then((doc) => {
+            frm.clear_table('process_items');
+
+            (doc.process_template_details || []).forEach((row) => {
+                const child = frm.add_child('process_items');
+                child.item_group = row.item_group;
+                child.process_name = row.item_code;
+                child.sku_item = frm.doc.sku_items;
+            });
+
+            frm.refresh_field('process_items');
+            calculate_process_amount_total(frm);
+        });
+    },
+
     other_expenses_section(frm) {
         frm.trigger("set_total");
     }, other_expenses(frm) {
