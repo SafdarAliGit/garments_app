@@ -8,7 +8,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "size"
+  "size",
+  "packing"
  ],
  "fields": [
   {
@@ -16,6 +17,12 @@
    "fieldtype": "Data",
    "label": "Size",
    "unique": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "packing",
+   "fieldtype": "Check",
+   "label": "Packing"
   }
  ],
  "index_web_pages_for_search": 1,
