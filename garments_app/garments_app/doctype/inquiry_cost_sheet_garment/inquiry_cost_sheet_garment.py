@@ -3,8 +3,32 @@
 
 import frappe
 from frappe.model.document import Document
+from frappe.utils import flt
 
 class InquiryCostSheetGarment(Document):
+	def validate(self):
+		self.calculate_qty_from_part_ratio()
+
+	def calculate_qty_from_part_ratio(self):
+		for dest_row in self.get("job_costing_fabric") or []:
+			if not (dest_row.item_code and dest_row.part and dest_row.ratio):
+				continue
+
+			sum_of_total_body_gross = sum(
+				flt(row.total_body_gross)
+				for row in self.get("fabric_calculations") or []
+				if row.item_code == dest_row.item_code
+				and row.part == dest_row.part
+				and row.color == dest_row.color
+			)
+
+			if sum_of_total_body_gross > 0:
+				dest_row.qty = sum_of_total_body_gross
+				dest_row.yarn_qty = sum_of_total_body_gross * (flt(dest_row.ratio) / 100)
+			else:
+				dest_row.qty = 0
+				dest_row.yarn_qty = 0
+
 	@frappe.whitelist()
 	def create_po(self, supplier):
 		po = frappe.new_doc("Purchase Order")
